@@ -12,11 +12,11 @@
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "@workspace/ui": "workspace:*"
+    "@ttrak/ui": "workspace:*"
   },
   "devDependencies": {
-    "@workspace/eslint-config": "workspace:^",
-    "@workspace/typescript-config": "workspace:*",
+    "@ttrak/eslint-config": "workspace:^",
+    "@ttrak/typescript-config": "workspace:*",
     "@eslint/js": "^9.22.0",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",

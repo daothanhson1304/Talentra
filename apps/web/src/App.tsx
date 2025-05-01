@@ -1,4 +1,4 @@
-import { Button } from '@workspace/ui/components/button';
+import { Button } from '@ttrak/ui/components/button';
 
 function App() {
   return (
