@@ -1,11 +1,7 @@
-import { Button } from '@ttrak/ui/components/button';
+import AppLayout from '@/layouts/app-layout';
 
 function App() {
-  return (
-    <>
-      <Button>Hello world</Button>
-    </>
-  );
+  return <AppLayout />;
 }
 
 export default App;
