@@ -1,6 +1,6 @@
 export function MainSidebar() {
   return (
-    <aside className='w-16 bg-black text-white flex flex-col items-center py-4 gap-4'>
+    <aside className='w-16 bg-card-foreground text-primary flex flex-col items-center py-4 gap-4'>
       <SidebarIcon icon='📋' />
       <SidebarIcon icon='📅' />
       <SidebarIcon icon='⚙️' />

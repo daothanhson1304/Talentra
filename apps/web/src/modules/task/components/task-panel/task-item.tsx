@@ -1,13 +1,15 @@
 import { useDraggable } from '@dnd-kit/core';
 import { cn } from '@ttrak/ui/lib/utils';
+import { Task } from '../../stores/slice/task-slice';
 
-interface Task {
-  title: string;
-  id: string;
+interface TaskItemProps {
+  task: Task;
+  isHidden?: boolean;
 }
-export default function TaskItem({ title, id }: Task) {
+export default function TaskItem({ task, isHidden }: TaskItemProps) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id,
+    id: task.id,
+    data: task,
   });
   const style = transform
     ? {
@@ -19,10 +21,10 @@ export default function TaskItem({ title, id }: Task) {
     <li
       ref={setNodeRef}
       className={cn(
-        'flex items-start gap-2 cursor-pointer transition-opacity duration-500',
+        'flex items-start gap-2 cursor-pointer transition-opacity duration-300',
         {
-          // 'opacity-0 pointer-events-none': !!overId && activeId === title,
-          // 'opacity-100': !overId || activeId !== title,
+          'opacity-0 pointer-events-none': isHidden,
+          'opacity-100': !isHidden,
         }
       )}
       style={style}
@@ -31,8 +33,8 @@ export default function TaskItem({ title, id }: Task) {
     >
       <input type='checkbox' className='mt-1' />
       <div>
-        <p className='text-sm'>🎉 {title}</p>
-        <div className='text-xs text-gray-400'>
+        <p className='text-sm'>🎉 {task.title}</p>
+        <div className='text-xs text-primary'>
           📅 Tomorrow · ⏱ 30m · 📥 Inbox
         </div>
       </div>

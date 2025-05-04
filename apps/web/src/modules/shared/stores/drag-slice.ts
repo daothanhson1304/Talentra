@@ -1,3 +1,4 @@
+import { Task } from '@/modules/task/stores/slice/task-slice';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface DragState {

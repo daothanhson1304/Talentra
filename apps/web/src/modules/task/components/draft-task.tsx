@@ -1,15 +1,15 @@
 import { cn } from '@ttrak/ui/lib/utils';
-import { Task } from '../../stores/slice/task-slice';
+import { Task } from '../stores/slice/task-slice';
+import { SLOT_HEIGHT } from '@/constants/calendar';
 
-type ScheduledTaskProps = Pick<Task, 'slotCount' | 'title' | 'startSlot'>;
+type DraftTaskProps = Pick<Task, 'slotCount' | 'title' | 'startSlot'>;
 
-export default function ScheduledTask({
+export default function DraftTask({
   title,
   startSlot,
   slotCount,
-}: ScheduledTaskProps) {
-  const SLOT_HEIGHT = 24; // px, mỗi slot cao 24px (tùy theo thiết kế)
-  if (!startSlot) {
+}: DraftTaskProps) {
+  if (startSlot === null) {
     return null;
   }
   return (
@@ -22,7 +22,7 @@ export default function ScheduledTask({
         height: `${slotCount * SLOT_HEIGHT}px`,
       }}
     >
-      {title}
+      Thả vào đây để tạo task
     </div>
   );
 }
