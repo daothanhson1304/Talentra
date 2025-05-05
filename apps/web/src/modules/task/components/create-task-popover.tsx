@@ -8,9 +8,16 @@ import {
 import { Button } from '@ttrak/ui/components/button';
 import { Input } from '@ttrak/ui/components/input';
 import { Textarea } from '@ttrak/ui/components/textarea';
-import { Label } from '@ttrak/ui/components/label';
 import { useState } from 'react';
-import { Plus } from 'lucide-react';
+import {
+  CalendarIcon,
+  Handshake,
+  MapPinned,
+  Plus,
+  School,
+  SquareUser,
+  TrashIcon,
+} from 'lucide-react';
 
 export default function CreateTaskPopover() {
   const [open, setOpen] = useState(false);
@@ -25,34 +32,61 @@ export default function CreateTaskPopover() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button>
-          <Plus />
-        </Button>
+        <Plus className='bg-layer2 rounded-sm text-primary cursor-pointer p-1' />
       </PopoverTrigger>
-      <PopoverContent className='w-[350px] p-4 space-y-4 bg-popover text-popover-foreground border border-border rounded-md shadow-md'>
-        <div>
-          <Label htmlFor='task-name' className='text-sm font-medium'>
-            Task name
-          </Label>
+      <PopoverContent className='w-[380px] p-4 border-none space-y-4 bg-layer3 text-white shadow-2xl rounded-xl'>
+        <div className='space-y-2'>
           <Input
-            id='task-name'
-            value={taskName}
-            onChange={e => setTaskName(e.target.value)}
-            placeholder='Enter task name'
-            className='mt-1'
+            placeholder='New Task'
+            className='text-lg font-semibold text-white bg-neutral-800 border-none focus-visible:ring-0 focus-visible:ring-offset-0'
+          />
+          <Textarea
+            placeholder='Notes'
+            className='bg-neutral-800 border-none text-sm text-gray-300 focus-visible:ring-0 focus-visible:ring-offset-0'
           />
         </div>
 
-        <div>
-          <Label htmlFor='task-notes'>Notes</Label>
-          <Textarea id='task-notes' placeholder='Add some notes...' />
+        <div className='space-y-2 text-sm text-gray-300'>
+          <div className='flex justify-between items-center'>
+            <span className='flex items-center gap-2'>
+              <School size={16} />
+              School
+              <span className='text-white font-medium'>Phùng Chí Kiên</span>
+            </span>
+          </div>
+          <div className='flex justify-between items-center'>
+            <span className='flex items-center gap-2'>
+              <MapPinned size={16} />
+              Classroom
+              <span className='text-white font-medium'>3A</span>
+            </span>
+          </div>
+          <div className='flex justify-between items-center'>
+            <span className='flex items-center gap-2'>
+              <SquareUser size={16} />
+              Teacher
+              <span className='text-white font-medium'>Mrs. Alice</span>
+            </span>
+          </div>
+          <div className='flex justify-between items-center'>
+            <span className='flex items-center gap-2'>
+              <Handshake size={16} />
+              Assistant
+              <span className='text-white font-medium'>Nguyễn Văn A</span>
+            </span>
+          </div>
         </div>
 
-        <div className='flex justify-end space-x-2'>
-          <Button variant='outline' onClick={() => setOpen(false)}>
-            Cancel
+        <div className='flex justify-between items-center pt-4'>
+          <Button variant='ghost' className='text-red-500 hover:bg-red-500/10'>
+            <TrashIcon className='mr-2 h-4 w-4' /> Delete
           </Button>
-          <Button onClick={handleSave}>Save</Button>
+          <div className='space-x-2'>
+            <Button variant='ghost' onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant='default'>Save</Button>
+          </div>
         </div>
       </PopoverContent>
     </Popover>

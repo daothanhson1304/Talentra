@@ -24,7 +24,10 @@ export default function TimeSlot({
   return (
     <div
       ref={setNodeRef}
-      className={cn(className, 'relative transition-colors duration-200 pr-3')}
+      className={cn(
+        className,
+        'h-6 relative transition-colors duration-200 pr-3'
+      )}
     >
       {children}
     </div>

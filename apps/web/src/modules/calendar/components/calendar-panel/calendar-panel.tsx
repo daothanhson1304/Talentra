@@ -7,7 +7,7 @@ export default function CalendarPanel() {
   const { tasks } = useTasks();
   const { draftTask } = useDragOver();
   return (
-    <section className='flex-1 bg-black text-white p-4 h-dvh overflow-auto'>
+    <section className='flex-1 bg-layer1 text-white p-4 h-dvh overflow-auto'>
       <CalendarHeader />
       <CalendarGrid tasks={tasks} draftTask={draftTask} />
     </section>

@@ -6,6 +6,7 @@ import App from '@/App';
 import { store } from '@/stores';
 
 import '@ttrak/ui/globals.css';
+import '@/modules/task/styles/index.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

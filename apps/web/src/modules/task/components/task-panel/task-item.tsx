@@ -21,7 +21,7 @@ export default function TaskItem({ task, isHidden }: TaskItemProps) {
     <li
       ref={setNodeRef}
       className={cn(
-        'flex items-start gap-2 cursor-pointer transition-opacity duration-300',
+        'flex p-3 rounded-md hover:bg-layer3 items-start gap-2 cursor-pointer transition-all duration-200',
         {
           'opacity-0 pointer-events-none': isHidden,
           'opacity-100': !isHidden,
@@ -31,12 +31,12 @@ export default function TaskItem({ task, isHidden }: TaskItemProps) {
       {...listeners}
       {...attributes}
     >
-      <input type='checkbox' className='mt-1' />
+      {/* <input type='checkbox' className='mt-1' /> */}
       <div>
-        <p className='text-sm'>🎉 {task.title}</p>
-        <div className='text-xs text-primary'>
+        <p className='text-md text-primary font-semibold'>🎉 {task.title}</p>
+        {/* <div className='text-xs text-primary'>
           📅 Tomorrow · ⏱ 30m · 📥 Inbox
-        </div>
+        </div> */}
       </div>
     </li>
   );

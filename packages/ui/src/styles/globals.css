@@ -1,4 +1,3 @@
-/* eslint-disable css/unknownAtRules */
 @import 'tailwindcss';
 @source "../../../apps/**/*.{ts,tsx}";
 @source "../../../components/**/*.{ts,tsx}";
@@ -42,6 +41,8 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  /* custom */
+  --layer0: #171717;
 }
 
 .dark {
@@ -51,10 +52,12 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.145 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
+  --primary: #ebebeb;
+
+  --primary-foreground: #c2c2c2;
+  --secondary: #232323;
   --secondary-foreground: oklch(0.985 0 0);
+
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
@@ -77,6 +80,12 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+  /* custom */
+  --layer0: #1a1a1a;
+  --layer1: #1c1c1c;
+  --layer2: #292929;
+  --layer3: #383838;
+  --aqua-breeze: #63daec;
 }
 
 @theme inline {
@@ -116,6 +125,12 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  /* custom */
+  --color-layer0: var(--layer0);
+  --color-layer1: var(--layer1);
+  --color-layer2: var(--layer2);
+  --color-layer3: var(--layer3);
+  --color-aqua-breeze: var(--aqua-breeze);
 }
 
 @layer base {
@@ -125,4 +140,23 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Tùy chỉnh thanh cuộn */
+::-webkit-scrollbar {
+  width: 8px; /* Độ rộng của thanh cuộn */
+  height: 8px; /* Độ cao của thanh cuộn ngang */
+}
+
+::-webkit-scrollbar-track {
+  background: var(--layer1); /* Màu nền của track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--layer2); /* Màu của thanh cuộn */
+  border-radius: 4px; /* Bo góc */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary); /* Màu khi hover */
 }

@@ -17,7 +17,7 @@ export default function AppLayout() {
           <ResizablePanel defaultSize={25} className='h-full' maxSize={40}>
             <TaskPanel />
           </ResizablePanel>
-          <ResizableHandle />
+          <ResizableHandle className='bg-secondary' />
           <ResizablePanel>
             <CalendarPanel />
           </ResizablePanel>
