@@ -52,7 +52,8 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.145 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: #ebebeb;
+  --primary: #625efc;
+  --primary-active: #4f39f6;
 
   --primary-foreground: #c2c2c2;
   --secondary: #232323;
@@ -82,9 +83,10 @@
   --sidebar-ring: oklch(0.439 0 0);
   /* custom */
   --layer0: #1a1a1a;
-  --layer1: #1c1c1c;
+  --layer1: #1d1d1d;
   --layer2: #292929;
   --layer3: #383838;
+  --charcoal-gray: #303030;
   --aqua-breeze: #63daec;
 }
 
@@ -130,7 +132,9 @@
   --color-layer1: var(--layer1);
   --color-layer2: var(--layer2);
   --color-layer3: var(--layer3);
+  --color-charcoal-gray: var(--charcoal-gray);
   --color-aqua-breeze: var(--aqua-breeze);
+  --color-primary-active: var(--primary-active);
 }
 
 @layer base {

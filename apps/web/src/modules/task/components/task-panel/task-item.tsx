@@ -31,12 +31,8 @@ export default function TaskItem({ task, isHidden }: TaskItemProps) {
       {...listeners}
       {...attributes}
     >
-      {/* <input type='checkbox' className='mt-1' /> */}
       <div>
-        <p className='text-md text-primary font-semibold'>🎉 {task.title}</p>
-        {/* <div className='text-xs text-primary'>
-          📅 Tomorrow · ⏱ 30m · 📥 Inbox
-        </div> */}
+        <p className='text-md font-semibold'>🎉 {task.title}</p>
       </div>
     </li>
   );

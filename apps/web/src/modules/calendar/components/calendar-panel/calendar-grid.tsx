@@ -18,15 +18,15 @@ const hours = Array.from({ length: 24 }, (_, i) => i);
 export default function CalendarGrid({ tasks, draftTask }: CalendarGridProps) {
   return (
     <>
-      <div className='grid grid-cols-8 border-b border-secondary'>
-        <div className='col-span-1  border-secondary relative'></div>
+      <div className='grid grid-cols-8 border-b border-charcoal-gray'>
+        <div className='col-span-1  border-charcoal-gray relative'></div>
         {days.map(day => (
-          <div key={day} className='text-base text-primary text-center'>
+          <div key={day} className='text-base  text-center'>
             {day}
           </div>
         ))}
       </div>
-      <div className='grid grid-cols-8 border-t border-secondary'>
+      <div className='grid grid-cols-8 border-t border-charcoal-gray'>
         <div className='col-span-1'>
           {hours.map(h => (
             <div key={h} className='h-24 text-xs text-primary-foreground'>
@@ -45,7 +45,7 @@ export default function CalendarGrid({ tasks, draftTask }: CalendarGridProps) {
           const positionedTasks = groupOverlappingTasks(dayTasks);
           return (
             <Fragment key={day}>
-              <div className='col-span-1 border-l border-secondary relative'>
+              <div className='col-span-1 border-l border-charcoal-gray relative'>
                 {hours.map((_, hourIndex) => (
                   <Fragment key={`${day}-${hourIndex}`}>
                     {[0, 1, 2, 3].map(quarterIndex => {
@@ -60,7 +60,8 @@ export default function CalendarGrid({ tasks, draftTask }: CalendarGridProps) {
                           data={data}
                           id={`${day}-${globalIndex}`}
                           className={cn({
-                            'border-b border-secondary': quarterIndex % 2 === 1,
+                            'border-b border-charcoal-gray':
+                              quarterIndex % 2 === 1,
                           })}
                         ></TimeSlot>
                       );
