@@ -1,14 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export interface Task {
-  id: string;
-  title: string;
-  day: string | null;
-  slotCount: number;
-  startSlot: number;
-  scheduled: boolean;
-}
-
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Task } from "@ttrak/types/task";
 export interface TaskState {
   items: Task[];
   draftTask: Task | null;
@@ -17,122 +8,122 @@ export interface TaskState {
 const initialState: TaskState = {
   items: [
     {
-      id: '1',
+      id: "1",
       day: null,
-      title: 'Little Master 5 - Mrs. Alice',
+      title: "Little Master 5 - Mrs. Alice",
       slotCount: 2,
       startSlot: 0,
       scheduled: false,
     },
     {
-      id: '2',
+      id: "2",
       day: null,
-      title: 'Elementary 1 - Mrs. Alice',
+      title: "Elementary 1 - Mrs. Alice",
       slotCount: 2,
       startSlot: 0,
       scheduled: false,
     },
     {
-      id: '3',
+      id: "3",
       day: null,
-      title: 'Bần 2 - Mrs. Alice',
+      title: "Bần 2 - Mrs. Alice",
       slotCount: 2,
       startSlot: 0,
       scheduled: false,
     },
     {
-      id: '4',
+      id: "4",
       day: null,
-      title: 'Nhân hòa 1 - Mrs. Alice',
+      title: "Nhân hòa 1 - Mrs. Alice",
       slotCount: 2,
       startSlot: 0,
       scheduled: false,
     },
     {
-      id: '5',
+      id: "5",
       day: null,
-      title: 'Phùng Chí Kiên - Mrs. Alice',
+      title: "Phùng Chí Kiên - Mrs. Alice",
       slotCount: 2,
       startSlot: 0,
       scheduled: false,
     },
 
     {
-      id: '6',
+      id: "6",
       day: null,
-      title: 'Little Master 5 - Mrs. Alice',
+      title: "Little Master 5 - Mrs. Alice",
       slotCount: 2,
       startSlot: 0,
       scheduled: false,
     },
     {
-      id: '7',
+      id: "7",
       day: null,
-      title: 'Elementary 1 - Mrs. Alice',
+      title: "Elementary 1 - Mrs. Alice",
       slotCount: 2,
       startSlot: 0,
       scheduled: false,
     },
     {
-      id: '8',
+      id: "8",
       day: null,
-      title: 'Bần 2 - Mrs. Alice',
+      title: "Bần 2 - Mrs. Alice",
       slotCount: 2,
       startSlot: 0,
       scheduled: false,
     },
     {
-      id: '9',
+      id: "9",
       day: null,
-      title: 'Nhân hòa 1 - Mrs. Alice',
+      title: "Nhân hòa 1 - Mrs. Alice",
       slotCount: 2,
       startSlot: 0,
       scheduled: false,
     },
     {
-      id: '10',
+      id: "10",
       day: null,
-      title: 'Phùng Chí Kiên - Mrs. Alice',
+      title: "Phùng Chí Kiên - Mrs. Alice",
       slotCount: 2,
       startSlot: 0,
       scheduled: false,
     },
     {
-      id: '11',
+      id: "11",
       day: null,
-      title: 'Little Master 5 - Mrs. Alice',
+      title: "Little Master 5 - Mrs. Alice",
       slotCount: 2,
       startSlot: 0,
       scheduled: false,
     },
     {
-      id: '12',
+      id: "12",
       day: null,
-      title: 'Elementary 1 - Mrs. Alice',
+      title: "Elementary 1 - Mrs. Alice",
       slotCount: 2,
       startSlot: 0,
       scheduled: false,
     },
     {
-      id: '13',
+      id: "13",
       day: null,
-      title: 'Bần 2 - Mrs. Alice',
+      title: "Bần 2 - Mrs. Alice",
       slotCount: 2,
       startSlot: 0,
       scheduled: false,
     },
     {
-      id: '14',
+      id: "14",
       day: null,
-      title: 'Nhân hòa 1 - Mrs. Alice',
+      title: "Nhân hòa 1 - Mrs. Alice",
       slotCount: 2,
       startSlot: 0,
       scheduled: false,
     },
     {
-      id: '15',
+      id: "15",
       day: null,
-      title: 'Phùng Chí Kiên - Mrs. Alice',
+      title: "Phùng Chí Kiên - Mrs. Alice",
       slotCount: 2,
       startSlot: 0,
       scheduled: false,
@@ -142,32 +133,32 @@ const initialState: TaskState = {
 };
 
 const taskSlice = createSlice({
-  name: 'tasks',
+  name: "tasks",
   initialState,
   reducers: {
     addTask: (state, action: PayloadAction<Task>) => {
       state.items.push(action.payload);
     },
     removeTask: (state, action: PayloadAction<string>) => {
-      state.items = state.items.filter(task => task.id !== action.payload);
+      state.items = state.items.filter((task) => task.id !== action.payload);
     },
     setDraftTask: (state, action: PayloadAction<Task | null>) => {
       state.draftTask = action.payload;
     },
     updateSlotCount: (
       state,
-      action: PayloadAction<{ id: string; slotCount: number }>
+      action: PayloadAction<{ id: string; slotCount: number }>,
     ) => {
-      const task = state.items.find(t => t.id === action.payload.id);
+      const task = state.items.find((t) => t.id === action.payload.id);
       if (task) {
         task.slotCount = action.payload.slotCount;
       }
     },
     makeScheduledTask: (
       state,
-      action: PayloadAction<{ id: string; day: string; startSlot: number }>
+      action: PayloadAction<{ id: string; day: string; startSlot: number }>,
     ) => {
-      const task = state.items.find(task => task.id === action.payload.id);
+      const task = state.items.find((task) => task.id === action.payload.id);
       if (task) {
         task.day = action.payload.day;
         task.startSlot = action.payload.startSlot;
@@ -177,9 +168,9 @@ const taskSlice = createSlice({
     },
     updateScheduledTask: (
       state,
-      action: PayloadAction<{ id: string; day: string; startSlot: number }>
+      action: PayloadAction<{ id: string; day: string; startSlot: number }>,
     ) => {
-      const task = state.items.find(task => task.id === action.payload.id);
+      const task = state.items.find((task) => task.id === action.payload.id);
       if (task) {
         task.day = action.payload.day;
         task.startSlot = action.payload.startSlot;

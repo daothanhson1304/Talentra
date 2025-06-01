@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import dragReducer from '@/modules/shared/stores/drag-slice';
+import dragReducer from '@/modules/shared/drag-drop/stores/drag-slice';
 import taskReducer from '@/modules/task/stores/slice/task-slice';
 
 export const store = configureStore({

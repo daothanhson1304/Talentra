@@ -1,28 +1,29 @@
-import CalendarPanel from '@/modules/calendar/components/calendar-panel';
-import DndKitProvider from '@/modules/dnd-kit/components/dnd-kit-provider';
-import { TaskPanel } from '@/modules/task/components/task-panel';
-import { MainSidebar } from './main-sidebar';
+import CalendarPanel from "@/modules/calendar/components/calendar-panel";
+import DragDropProvider from "@/modules/shared/drag-drop/components/drag-drop-provider";
 import {
   ResizablePanelGroup,
   ResizablePanel,
   ResizableHandle,
-} from '@ttrak/ui/components/resizable';
+} from "@ttrak/ui/components/resizable";
+
+import AppSidebar from "./app-sidebar";
+import MainSidebar from "./main-sidebar";
 
 export default function AppLayout() {
   return (
-    <div className='flex h-screen'>
-      <MainSidebar />
-      <DndKitProvider>
-        <ResizablePanelGroup direction='horizontal'>
-          <ResizablePanel defaultSize={25} className='h-full' maxSize={40}>
-            <TaskPanel />
+    <div className="flex h-screen">
+      <AppSidebar />
+      <DragDropProvider>
+        <ResizablePanelGroup direction="horizontal">
+          <ResizablePanel defaultSize={25} className="h-full" maxSize={40}>
+            <MainSidebar />
           </ResizablePanel>
-          <ResizableHandle className='bg-secondary' />
+          <ResizableHandle className="bg-secondary" />
           <ResizablePanel>
             <CalendarPanel />
           </ResizablePanel>
         </ResizablePanelGroup>
-      </DndKitProvider>
+      </DragDropProvider>
     </div>
   );
 }

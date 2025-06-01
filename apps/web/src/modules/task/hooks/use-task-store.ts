@@ -1,16 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import {
   draftTaskSelector,
   taskListSelector,
-} from '../stores/selector/task-selector';
+} from "../stores/selector/task-selector.js";
 import {
   makeScheduledTask,
   setDraftTask,
   updateScheduledTask as updateScheduledTaskAction,
   updateSlotCount,
-} from '../stores/slice/task-slice';
+} from "../stores/slice/task-slice.js";
 
-export default function useTasks() {
+export default function useTaskStore() {
   const dispatch = useDispatch();
   const tasks = useSelector(taskListSelector);
   const draftTask = useSelector(draftTaskSelector);
@@ -20,12 +20,12 @@ export default function useTasks() {
   const updateScheduledTask = (
     taskId: string,
     day: string,
-    startSlot: number
+    startSlot: number,
   ) => {
     dispatch(updateScheduledTaskAction({ id: taskId, day, startSlot }));
   };
   const getTaskById = (taskId: string) => {
-    return tasks.find(task => task.id === taskId);
+    return tasks.find((task) => task.id === taskId);
   };
   const updateDraftTask = (task: any) => {
     dispatch(setDraftTask(task));
