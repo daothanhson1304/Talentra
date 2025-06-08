@@ -1,8 +1,8 @@
-import useTaskStore from "@/modules/task/hooks/use-task-store";
-import { DragOverEvent } from "@dnd-kit/core";
-import { useDispatch } from "react-redux";
-import { setOverId } from "../../shared/drag-drop/stores/drag-slice.js";
-import { Task } from "@ttrak/types/task";
+import useTaskStore from '@/modules/task/hooks/use-task-store';
+import { DragOverEvent } from '@dnd-kit/core';
+import { useDispatch } from 'react-redux';
+import { setOverId } from '../../app/drag-drop/stores/slice/drag-slice.js';
+import { Task } from '@ttrak/types/task';
 
 export default function useDragDropTask() {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import { useDraggable } from '@dnd-kit/core';
+import { Task } from '@ttrak/types/task';
 import { cn } from '@ttrak/ui/lib/utils';
-import { Task } from '../../stores/slice/task-slice';
 
 interface TaskItemProps {
   task: Task;
@@ -21,7 +21,7 @@ export default function TaskItem({ task, isHidden }: TaskItemProps) {
     <li
       ref={setNodeRef}
       className={cn(
-        'flex p-3 rounded-md hover:bg-layer3 items-start gap-2 cursor-pointer transition-all duration-200',
+        'flex py-2 px-3 rounded-md hover:bg-layer3 items-start cursor-pointer transition-all duration-200 flex-col',
         {
           'opacity-0 pointer-events-none': isHidden,
           'opacity-100': !isHidden,
@@ -31,9 +31,8 @@ export default function TaskItem({ task, isHidden }: TaskItemProps) {
       {...listeners}
       {...attributes}
     >
-      <div>
-        <p className='text-md font-semibold'>🎉 {task.title}</p>
-      </div>
+      <h3 className='text-sm font-medium'>{task.title}</h3>
+      <p className='text-sm text-muted-foreground'>{task.description}</p>
     </li>
   );
 }

@@ -1,20 +1,39 @@
-import { ListFilter } from "lucide-react";
-import useTaskStore from "../../hooks/use-task-store";
-import CreateTaskPopover from "../create-task-popover";
-import TaskList from "./task-list";
+import { ArrowLeft, ListFilter } from 'lucide-react';
+import CreateTaskPopover from '../create-task-popover';
+import TaskList from './task-list';
+import { useGetEmployeeState } from '@/modules/employee/hooks/use-get-employee-state';
+import { useMemo } from 'react';
+import useSetSidebarState from '@/modules/app/sidebar/hooks/use-set-sidebar-state';
+import { SidebarTab } from '@/modules/app/sidebar/types';
 
 export default function TaskPanel() {
-  const { tasks } = useTaskStore();
   return (
-    <section className="bg-layer0 p-4 h-full w-full">
-      <div className="flex items-start justify-between items-center gap-8">
-        <h2>Tasks</h2>
-        <div className="flex text-primary-foreground justify-end items-center gap-3 flex-1">
+    <section className='bg-layer0 p-4 h-full w-full overflow-y-auto pt-0'>
+      <div className='flex items-start justify-between items-center gap-8 pb-2 sticky top-0 z-10 bg-layer0 pt-4'>
+        <TaskTitle />
+        <div className='flex text-primary-foreground justify-end items-center gap-3 flex-1'>
           <ListFilter size={18} />
           <CreateTaskPopover />
         </div>
       </div>
-      <TaskList tasks={tasks} />
+      <TaskList />
     </section>
   );
 }
+
+const TaskTitle = () => {
+  const { selectedEmployeeId, getEmployeeById } = useGetEmployeeState();
+  const { setActiveTab } = useSetSidebarState();
+  const employee = useMemo(() => {
+    return getEmployeeById(selectedEmployeeId ?? '');
+  }, [selectedEmployeeId]);
+  return (
+    <h2 className='flex items-center gap-2 whitespace-nowrap'>
+      <ArrowLeft
+        className='bg-layer2 rounded-sm cursor-pointer p-1'
+        onClick={() => setActiveTab(SidebarTab.EMPLOYEE)}
+      />
+      Tasks of {employee?.name}
+    </h2>
+  );
+};

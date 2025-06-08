@@ -1,20 +1,19 @@
-import useDragDropTask from "@/modules/task/hooks/use-drag-drop-task";
-import TaskItem from "./task-item";
-import { Task } from "@ttrak/types/task";
+import useDragDropTask from '@/modules/task/hooks/use-drag-drop-task';
+import TaskItem from './task-item';
+import useTaskStore from '../../hooks/use-task-store';
 
-interface TaskListProps {
-  tasks: Task[];
-}
-export default function TaskList({ tasks }: TaskListProps) {
+export default function TaskList() {
+  const { tasks } = useTaskStore();
   const { draftTask } = useDragDropTask();
+
   return (
-    <div className="mb-6">
-      <ul className="task-list space-y-2 overflow-y-auto">
-        {tasks.map((task, idx) => {
+    <div className='mb-6'>
+      <ul className='task-list space-y-2'>
+        {tasks.map(task => {
           if (task.scheduled) return null;
           return (
             <TaskItem
-              key={idx}
+              key={task.id}
               task={task}
               isHidden={!!draftTask && task.id === draftTask.id}
             />

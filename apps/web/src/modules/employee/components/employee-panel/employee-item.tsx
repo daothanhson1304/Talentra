@@ -1,29 +1,36 @@
-import { Employee } from "@ttrak/types/employee";
+import { Employee } from '@ttrak/types/employee';
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@ttrak/ui/components/avatar";
+} from '@ttrak/ui/components/avatar';
 interface EmployeeItemProps {
   employee: Employee;
+  onSelect: (id: string) => void;
 }
 
-export default function EmployeeItem({ employee }: EmployeeItemProps) {
+export default function EmployeeItem({
+  employee,
+  onSelect,
+}: EmployeeItemProps) {
   return (
-    <div className="flex items-start gap-4">
-      <Avatar className="w-10 h-10 border border-border flex items-center justify-center bg-white text-primary">
+    <div
+      className='flex items-start gap-4 cursor-pointer hover:bg-layer3 rounded-md p-2 '
+      onClick={() => {
+        onSelect(employee.id);
+      }}
+    >
+      <Avatar className='w-10 h-10 border border-border flex items-center justify-center bg-white text-primary'>
         <AvatarImage src={employee.avatar} />
         <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
       </Avatar>
-      <div className="flex gap-1 justify-between flex-1">
+      <div className='flex gap-1 justify-between flex-1'>
         <div>
-          <h3 className="text-sm font-medium">{employee.name}</h3>
-          <div className="flex items-center gap-2">
-            <p className="text-sm text-muted-foreground">{employee.email}</p>
-          </div>
+          <h3 className='text-sm font-medium'>{employee.name}</h3>
+          <p className='text-sm text-muted-foreground'>{employee.email}</p>
         </div>
-        <div className="flex items-center gap-2">
-          <p className="text-sm text-muted-foreground text-primary">
+        <div className='flex items-center gap-2'>
+          <p className='text-sm text-muted-foreground text-primary'>
             {employee.totalHours} Hrs
           </p>
         </div>

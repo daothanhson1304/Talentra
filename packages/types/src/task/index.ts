@@ -5,4 +5,5 @@ export interface Task {
   slotCount: number;
   startSlot: number;
   scheduled: boolean;
+  description: string;
 }
