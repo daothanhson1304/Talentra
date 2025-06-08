@@ -18,6 +18,7 @@ const initialState: EmployeeState = {
       totalHours: 10,
       totalTasks: 10,
       avatar: 'https://via.placeholder.com/150',
+      role: 'admin',
     },
     {
       id: '2',
@@ -28,6 +29,7 @@ const initialState: EmployeeState = {
       totalHours: 10,
       totalTasks: 10,
       avatar: 'https://via.placeholder.com/150',
+      role: 'admin',
     },
     {
       id: '3',
@@ -38,6 +40,7 @@ const initialState: EmployeeState = {
       totalHours: 10,
       totalTasks: 10,
       avatar: 'https://via.placeholder.com/150',
+      role: 'admin',
     },
     {
       id: '4',
@@ -48,6 +51,7 @@ const initialState: EmployeeState = {
       totalHours: 10,
       totalTasks: 10,
       avatar: 'https://via.placeholder.com/150',
+      role: 'admin',
     },
     {
       id: '5',
@@ -58,6 +62,7 @@ const initialState: EmployeeState = {
       totalHours: 10,
       totalTasks: 10,
       avatar: 'https://via.placeholder.com/150',
+      role: 'admin',
     },
     {
       id: '6',
@@ -68,6 +73,7 @@ const initialState: EmployeeState = {
       totalHours: 10,
       totalTasks: 10,
       avatar: 'https://via.placeholder.com/150',
+      role: 'admin',
     },
     {
       id: '7',
@@ -78,6 +84,7 @@ const initialState: EmployeeState = {
       totalHours: 10,
       totalTasks: 10,
       avatar: 'https://via.placeholder.com/150',
+      role: 'admin',
     },
     {
       id: '8',
@@ -88,6 +95,7 @@ const initialState: EmployeeState = {
       totalHours: 10,
       totalTasks: 10,
       avatar: 'https://via.placeholder.com/150',
+      role: 'admin',
     },
     {
       id: '9',
@@ -98,6 +106,7 @@ const initialState: EmployeeState = {
       totalHours: 10,
       totalTasks: 10,
       avatar: 'https://via.placeholder.com/150',
+      role: 'admin',
     },
     {
       id: '10',
@@ -108,6 +117,7 @@ const initialState: EmployeeState = {
       totalHours: 10,
       totalTasks: 10,
       avatar: 'https://via.placeholder.com/150',
+      role: 'admin',
     },
     {
       id: '11',
@@ -118,6 +128,7 @@ const initialState: EmployeeState = {
       totalHours: 10,
       totalTasks: 10,
       avatar: 'https://via.placeholder.com/150',
+      role: 'admin',
     },
     {
       id: '12',
@@ -128,6 +139,7 @@ const initialState: EmployeeState = {
       totalHours: 10,
       totalTasks: 10,
       avatar: 'https://via.placeholder.com/150',
+      role: 'admin',
     },
   ],
 };

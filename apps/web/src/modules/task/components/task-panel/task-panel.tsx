@@ -1,10 +1,11 @@
 import { ArrowLeft, ListFilter } from 'lucide-react';
-import CreateTaskPopover from '../create-task-popover';
 import TaskList from './task-list';
 import { useGetEmployeeState } from '@/modules/employee/hooks/use-get-employee-state';
 import { useMemo } from 'react';
 import useSetSidebarState from '@/modules/app/sidebar/hooks/use-set-sidebar-state';
 import { SidebarTab } from '@/modules/app/sidebar/types';
+
+import { CreateTaskDialog } from '../create-task-dialog';
 
 export default function TaskPanel() {
   return (
@@ -13,7 +14,7 @@ export default function TaskPanel() {
         <TaskTitle />
         <div className='flex text-primary-foreground justify-end items-center gap-3 flex-1'>
           <ListFilter size={18} />
-          <CreateTaskPopover />
+          <CreateTaskDialog />
         </div>
       </div>
       <TaskList />

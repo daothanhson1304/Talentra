@@ -6,7 +6,7 @@ interface TaskItemProps {
   task: Task;
   isHidden?: boolean;
 }
-export default function TaskItem({ task, isHidden }: TaskItemProps) {
+export default function TaskItem({ task, isHidden }: Readonly<TaskItemProps>) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: task.id,
     data: task,

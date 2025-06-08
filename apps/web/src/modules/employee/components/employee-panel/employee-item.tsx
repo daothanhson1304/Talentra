@@ -12,7 +12,7 @@ interface EmployeeItemProps {
 export default function EmployeeItem({
   employee,
   onSelect,
-}: EmployeeItemProps) {
+}: Readonly<EmployeeItemProps>) {
   return (
     <div
       className='flex items-start gap-4 cursor-pointer hover:bg-layer3 rounded-md p-2 '

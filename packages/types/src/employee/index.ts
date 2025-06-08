@@ -1,3 +1,4 @@
+export type EmployeeRole = 'teacher' | 'admin' | 'manager';
 export interface Employee {
   id: string;
   name: string;
@@ -7,4 +8,5 @@ export interface Employee {
   totalHours: number;
   totalTasks: number;
   avatar: string;
+  role: EmployeeRole;
 }
