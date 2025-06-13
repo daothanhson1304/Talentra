@@ -1,10 +1,10 @@
-import { Task } from '../stores/slice/task-slice';
+import { Task } from '@ttrak/types/task';
 
 type PositionedTask = Task & {
   left: number;
   width: number;
   zIndex: number;
-  isFirstInGroup: boolean; // thêm prop
+  isFirstInGroup: boolean;
 };
 
 function areOverlapping(a: Task, b: Task) {

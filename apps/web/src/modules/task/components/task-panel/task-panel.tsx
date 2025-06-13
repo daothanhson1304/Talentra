@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import useSetSidebarState from '@/modules/app/sidebar/hooks/use-set-sidebar-state';
 import { SidebarTab } from '@/modules/app/sidebar/types';
 
-import { CreateTaskDialog } from '../create-task-dialog';
+import CreateTaskPopover from '../create-task-popover';
 
 export default function TaskPanel() {
   return (
@@ -14,7 +14,7 @@ export default function TaskPanel() {
         <TaskTitle />
         <div className='flex text-primary-foreground justify-end items-center gap-3 flex-1'>
           <ListFilter size={18} />
-          <CreateTaskDialog />
+          <CreateTaskPopover />
         </div>
       </div>
       <TaskList />

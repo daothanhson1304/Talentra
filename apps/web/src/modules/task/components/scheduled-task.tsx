@@ -3,8 +3,9 @@ import { useDraggable } from '@dnd-kit/core';
 import { cn } from '@ttrak/ui/lib/utils';
 import { useEffect, useRef, useState } from 'react';
 import useTaskStore from '../hooks/use-task-store';
-import { Task } from '../stores/slice/task-slice';
+
 import { MoveRight } from 'lucide-react';
+import { Task } from '@ttrak/types/task';
 
 export type ScheduledTaskProps = Pick<
   Task,
@@ -19,7 +20,6 @@ export default function ScheduledTask({
   id,
   startSlot,
   slotCount,
-  isFirstInGroup,
   style: externalStyle,
 }: ScheduledTaskProps) {
   const [isResizing, setIsResizing] = useState(false);
@@ -45,11 +45,10 @@ export default function ScheduledTask({
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     const period = hours >= 12 ? 'PM' : 'AM';
-    const formattedHours = hours % 12 || 12; // Đổi 0 thành 12 cho định dạng 12 giờ
+    const formattedHours = hours % 12 || 12;
     return `${formattedHours}:${mins.toString().padStart(2, '0')} ${period}`;
   };
 
-  // Tính thời gian bắt đầu và kết thúc
   const startTime = formatTime(startSlot * SLOT_DURATION_MINUTES);
   const endTime = formatTime((startSlot + slotCount) * SLOT_DURATION_MINUTES);
 

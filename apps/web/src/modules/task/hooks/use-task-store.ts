@@ -4,11 +4,13 @@ import {
   taskListSelector,
 } from '../stores/selector/task-selector.js';
 import {
+  addTask,
   makeScheduledTask,
   setDraftTask,
   updateScheduledTask as updateScheduledTaskAction,
   updateSlotCount,
 } from '../stores/slice/task-slice.js';
+import { Task } from '@ttrak/types/task';
 
 export default function useTaskStore() {
   const dispatch = useDispatch();
@@ -33,6 +35,9 @@ export default function useTaskStore() {
   const updateTaskSlotCount = (taskId: string, slotCount: number) => {
     dispatch(updateSlotCount({ id: taskId, slotCount }));
   };
+  const createTask = (task: Task) => {
+    dispatch(addTask(task));
+  };
   return {
     tasks,
     scheduleTask,
@@ -41,5 +46,6 @@ export default function useTaskStore() {
     updateDraftTask,
     updateTaskSlotCount,
     updateScheduledTask,
+    createTask,
   };
 }

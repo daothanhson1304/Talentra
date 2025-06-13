@@ -1,7 +1,7 @@
 import { cn } from '@ttrak/ui/lib/utils';
-import { Task } from '../stores/slice/task-slice';
 import { SLOT_DURATION_MINUTES, SLOT_HEIGHT_PX } from '@/constants/calendar';
 import { MoveRight } from 'lucide-react';
+import { Task } from '@ttrak/types/task';
 
 type DraftTaskProps = Pick<Task, 'slotCount' | 'title' | 'startSlot'>;
 

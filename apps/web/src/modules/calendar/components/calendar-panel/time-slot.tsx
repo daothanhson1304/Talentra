@@ -3,33 +3,36 @@ import { cn } from '@ttrak/ui/lib/utils';
 
 interface TimeSlotProps {
   id: string;
-  data: {
-    startSlot: number;
-    day: string;
-  };
+
+  startSlot: number;
+  dayOffset: number;
+
   className?: string;
   children?: React.ReactNode;
 }
 export default function TimeSlot({
   id,
   className,
-  children,
-  data,
-}: TimeSlotProps) {
-  const { setNodeRef } = useDroppable({
-    id,
-    data,
-  });
+  startSlot,
+  dayOffset,
+}: Readonly<TimeSlotProps>) {
+  // const { setNodeRef } = useDroppable({
+  //   id,
+  //   data: {
+  //     startSlot,
+  //     dayOffset,
+  //   },
+  // });
+
+  console.log('render time slot');
 
   return (
     <div
-      ref={setNodeRef}
+      // ref={setNodeRef}
       className={cn(
         className,
         'h-6 relative transition-colors duration-200 pr-3'
       )}
-    >
-      {children}
-    </div>
+    ></div>
   );
 }

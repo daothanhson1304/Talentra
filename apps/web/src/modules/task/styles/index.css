@@ -1,3 +1,8 @@
 .task-list {
   max-height: calc(100vh - 60px);
 }
+.toaster {
+  --normal-bg: var(--layer1);
+  --normal-text: var(--text);
+  --normal-border: var(--border);
+}

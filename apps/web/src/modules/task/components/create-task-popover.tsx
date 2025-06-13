@@ -1,31 +1,83 @@
-'use client';
-
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '@ttrak/ui/components/button';
+import { Calendar } from '@ttrak/ui/components/calendar';
+import { Form, FormField } from '@ttrak/ui/components/form';
+import { Input } from '@ttrak/ui/components/input';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@ttrak/ui/components/popover';
-import { Input } from '@ttrak/ui/components/input';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@ttrak/ui/components/select';
 import { Textarea } from '@ttrak/ui/components/textarea';
+import { Calendar as CalendarIcon, Clock, Flag, Plus } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { Plus } from 'lucide-react';
-import { DEFAULT_TASK_NAME } from '../constants';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import useTaskStore from '../hooks/use-task-store';
+import { Importance } from '@ttrak/types/task';
+import { toast } from '@ttrak/ui/components/sonner';
+import dayjs from 'dayjs';
+
+const formSchema = z.object({
+  taskName: z.string().min(1, {
+    message: 'Task name is required',
+  }),
+  notes: z.string().optional(),
+  importance: z.nativeEnum(Importance).optional(),
+  estimate: z.string().optional(),
+  dueDate: z.date().optional(),
+});
+
+const defaultValues = {
+  taskName: 'New Task',
+  notes: '',
+  importance: Importance.medium,
+  estimate: '',
+  dueDate: new Date(),
+};
 
 export default function CreateTaskPopover() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const [taskName, setTaskName] = useState(DEFAULT_TASK_NAME);
+  const { createTask, tasks } = useTaskStore();
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues,
+  });
 
-  const handleSave = () => {
-    // Xử lý lưu task
-    console.log('Saving task:', taskName);
-    setOpen(false);
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    createTask({
+      id: (tasks.length + 1).toString(),
+      title: values.taskName,
+      description: values.notes ?? '',
+      importance: values.importance ?? Importance.medium,
+      day: new Date().toISOString(),
+      startSlot: 0,
+      slotCount: 1,
+      scheduled: false,
+    });
+    toast('Task has been created', {
+      description: dayjs(new Date()).format('dddd, MMMM DD, YYYY [at] h:mm A'),
+      action: {
+        label: 'Undo',
+        onClick: () => console.log('Undo'),
+      },
+    });
+    handleOpenChange(false);
   };
 
   const handleOpenChange = (open: boolean) => {
     setOpen(open);
-    if (open) {
-      setTaskName(DEFAULT_TASK_NAME);
+    if (!open) {
+      form.reset(defaultValues);
     }
   };
 
@@ -40,76 +92,121 @@ export default function CreateTaskPopover() {
       </PopoverTrigger>
       <PopoverContent className='w-[380px] border-none space-y-4 bg-layer3 text-white rounded-xl p-0'>
         <div className='bg-layer2 text-white rounded-xl p-4  border border-charcoal-gray'>
-          {/* Header */}
-          <div className='flex justify-between items-center mb-4 border-b border-zinc-700 pb-2'>
-            <Input
-              className='text-lg font-semibold border-charcoal-gray'
-              value={taskName}
-              onChange={e => {
-                setTaskName(e.target.value);
-              }}
-            />
-          </div>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <div className='flex justify-between items-center mb-4 border-b border-zinc-700 pb-2'>
+                <FormField
+                  control={form.control}
+                  name='taskName'
+                  render={({ field }) => (
+                    <Input
+                      className='text-lg font-semibold border-charcoal-gray'
+                      placeholder='New Task'
+                      {...field}
+                    />
+                  )}
+                />
+              </div>
+              <FormField
+                control={form.control}
+                name='notes'
+                render={({ field }) => (
+                  <Textarea
+                    className='w-full bg-transparent text-sm text-white placeholder-zinc-500 outline-none resize-none mb-3 border-charcoal-gray'
+                    placeholder='Notes'
+                    {...field}
+                  />
+                )}
+              />
 
-          {/* Notes Input */}
-          <Textarea
-            className='w-full bg-transparent text-sm text-white placeholder-zinc-500 outline-none resize-none mb-3 border-charcoal-gray'
-            placeholder='Notes'
-            rows={2}
-          />
+              <div className='flex items-center text-sm text-zinc-300 mb-1 gap-2'>
+                <Flag size={12} />
+                <span className='text-muted-foreground'>Importance</span>
+                <FormField
+                  control={form.control}
+                  name='importance'
+                  render={({ field }) => (
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger className='bg-transparent border-none outline-none p-0'>
+                        <SelectValue placeholder='Select priority' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectItem value='high'>High</SelectItem>
+                          <SelectItem value='medium'>Medium</SelectItem>
+                          <SelectItem value='normal'>Normal</SelectItem>
+                          <SelectItem value='low'>Low</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+              </div>
 
-          {/* Task list */}
-          <div className='flex items-center text-sm text-zinc-300 mb-3'>
-            <span className='mr-2'>📘</span>
-            <span className='text-white'>Task list</span>
-            <span className='ml-1 text-zinc-400'>Inbox</span>
-          </div>
+              <div className='flex items-center text-sm text-zinc-300 mb-3 gap-2'>
+                <Clock size={16} />
+                <span className='text-muted-foreground'>Estimate</span>
+                <FormField
+                  control={form.control}
+                  name='estimate'
+                  render={({ field }) => (
+                    <Input
+                      type='text'
+                      className='bg-transparent border-none outline-none placeholder-zinc-500 w-full'
+                      placeholder='Type your estimation, e.g. 60m'
+                      {...field}
+                    />
+                  )}
+                />
+              </div>
 
-          {/* Importance */}
-          <div className='flex items-center text-sm text-zinc-300 mb-3'>
-            <span className='mr-2'>👤</span>
-            <span className='text-white'>Importance</span>
-            <span className='ml-1 text-zinc-400'>Normal</span>
-          </div>
+              <div className='flex items-center text-sm text-zinc-300 mb-4 gap-2'>
+                <CalendarIcon size={14} />
+                <span className='text-muted-foreground'>Due date</span>
+                <Popover>
+                  <PopoverTrigger>
+                    <FormField
+                      control={form.control}
+                      name='dueDate'
+                      render={({ field }) => (
+                        <p className='cursor-pointer'>
+                          {field.value?.toLocaleDateString()}
+                        </p>
+                      )}
+                    />
+                  </PopoverTrigger>
+                  <PopoverContent className='p-0 w-fit bg-layer3 shadow-lg'>
+                    <Calendar
+                      mode='single'
+                      selected={form.getValues('dueDate')}
+                      onSelect={date => form.setValue('dueDate', date)}
+                      className='rounded-md border shadow-sm'
+                      captionLayout='dropdown'
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
 
-          {/* Estimate */}
-          <div className='flex items-center text-sm text-zinc-300 mb-3'>
-            <span className='mr-2'>⏱️</span>
-            <span className='text-white'>Estimate</span>
-            <input
-              type='text'
-              className='ml-2 bg-transparent border-none outline-none placeholder-zinc-500 w-full'
-              placeholder='Type your estimation, e.g. 60m'
-            />
-          </div>
-
-          {/* Due Date */}
-          <div className='flex items-center text-sm text-zinc-300 mb-4'>
-            <span className='mr-2'>🗓️</span>
-            <span className='text-white'>Due date</span>
-            <input
-              type='date'
-              className='ml-2 bg-transparent border-none outline-none text-white'
-            />
-          </div>
-
-          {/* Buttons */}
-          <div className='flex justify-between items-center justify-end '>
-            <div className='flex gap-5'>
-              <button
-                className='text-sm text-zinc-300 cursor-pointer'
-                onClick={() => setOpen(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className='bg-primary text-white px-4 py-1 rounded-md text-sm hover:bg-primary-active cursor-pointer'
-                onClick={handleSave}
-              >
-                Save
-              </button>
-            </div>
-          </div>
+              <div className='flex justify-between items-center justify-end '>
+                <div className='flex gap-5'>
+                  <Button
+                    variant='outline'
+                    className='text-sm text-zinc-300 cursor-pointer'
+                    onClick={() => handleOpenChange(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    className='bg-primary text-white px-4 py-1 rounded-md text-sm hover:bg-primary-active cursor-pointer'
+                    variant='default'
+                    type='submit'
+                  >
+                    Save
+                  </Button>
+                </div>
+              </div>
+            </form>
+          </Form>
         </div>
       </PopoverContent>
     </Popover>

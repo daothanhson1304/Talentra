@@ -1,15 +1,17 @@
-import useTaskStore from "@/modules/task/hooks/use-task-store";
-import CalendarGrid from "./calendar-grid";
-import CalendarHeader from "./calendar-header";
-import useDragDropTask from "@/modules/task/hooks/use-drag-drop-task";
+import CalendarGrid from './calendar-grid';
+import CalendarHeader from '../calendar-header/calendar-header';
+import ActionToolbar from '../action-toolbar/action-toolbar';
 
 export default function CalendarPanel() {
-  const { tasks } = useTaskStore();
-  const { draftTask } = useDragDropTask();
   return (
-    <section className="flex-1 bg-layer1 text-white p-4 h-dvh overflow-auto">
-      <CalendarHeader />
-      <CalendarGrid tasks={tasks} draftTask={draftTask} />
+    <section className='flex-1 bg-layer1 text-white p-4 h-dvh pt-0 pr-0 relative'>
+      <div className='relative'>
+        <div className='absolute top-0 right-0 z-10'>
+          <ActionToolbar />
+        </div>
+        <CalendarHeader />
+      </div>
+      <CalendarGrid className='overflow-auto h-[calc(100vh-96.8px)]' />
     </section>
   );
 }

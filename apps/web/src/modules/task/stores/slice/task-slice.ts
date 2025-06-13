@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Task } from '@ttrak/types/task';
+import { Importance, Task } from '@ttrak/types/task';
 export interface TaskState {
   items: Task[];
   draftTask: Task | null;
@@ -9,30 +9,33 @@ const initialState: TaskState = {
   items: [
     {
       id: '1',
-      day: 'Mon',
+      day: '2025-06-10T00:00:00Z',
       title: 'Little Master 5 - Mrs. Alice',
       slotCount: 3,
       startSlot: 5,
       scheduled: true,
       description: 'Take care of the children',
+      importance: Importance.medium,
     },
     {
       id: '2',
-      day: 'Tue',
+      day: '2025-06-11T00:00:00Z',
       title: 'Elementary 1 - Mrs. Alice',
       slotCount: 4,
       startSlot: 2,
       scheduled: true,
       description: 'Take care of the children',
+      importance: Importance.medium,
     },
     {
       id: '3',
-      day: 'Sun',
+      day: '2025-06-13T00:00:00Z',
       title: 'Bần 2 - Mrs. Alice',
       slotCount: 8,
       startSlot: 18,
       scheduled: true,
       description: 'Take care of the children',
+      importance: Importance.medium,
     },
     {
       id: '4',
@@ -42,6 +45,7 @@ const initialState: TaskState = {
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
+      importance: Importance.medium,
     },
     {
       id: '5',
@@ -51,6 +55,7 @@ const initialState: TaskState = {
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
+      importance: Importance.medium,
     },
 
     {
@@ -61,6 +66,7 @@ const initialState: TaskState = {
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
+      importance: Importance.medium,
     },
     {
       id: '7',
@@ -70,6 +76,7 @@ const initialState: TaskState = {
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
+      importance: Importance.medium,
     },
     {
       id: '8',
@@ -79,6 +86,7 @@ const initialState: TaskState = {
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
+      importance: Importance.medium,
     },
     {
       id: '9',
@@ -88,6 +96,7 @@ const initialState: TaskState = {
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
+      importance: Importance.medium,
     },
     {
       id: '10',
@@ -97,6 +106,7 @@ const initialState: TaskState = {
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
+      importance: Importance.medium,
     },
     {
       id: '11',
@@ -106,6 +116,7 @@ const initialState: TaskState = {
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
+      importance: Importance.medium,
     },
     {
       id: '12',
@@ -115,15 +126,17 @@ const initialState: TaskState = {
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
+      importance: Importance.medium,
     },
     {
       id: '13',
-      day: 'Tue',
+      day: '2025-06-14T00:00:00Z',
       title: 'Bần 2 - Mrs. Alice',
       slotCount: 8,
       startSlot: 14,
       scheduled: true,
       description: 'Take care of the children',
+      importance: Importance.medium,
     },
     {
       id: '14',
@@ -133,6 +146,7 @@ const initialState: TaskState = {
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
+      importance: Importance.medium,
     },
     {
       id: '15',
@@ -142,6 +156,7 @@ const initialState: TaskState = {
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
+      importance: Importance.medium,
     },
   ],
   draftTask: null,
@@ -177,7 +192,7 @@ const taskSlice = createSlice({
       if (task) {
         task.day = action.payload.day;
         task.startSlot = action.payload.startSlot;
-        task.slotCount = 2; // Mặc định là 2 slot
+        task.slotCount = 2;
         task.scheduled = true;
       }
     },
