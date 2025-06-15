@@ -1,38 +1,19 @@
-import { useDroppable } from '@dnd-kit/core';
 import { cn } from '@ttrak/ui/lib/utils';
+import { snappedHeightSelector } from '../../stores/selector/calendar-selector';
+import { useSelector } from 'react-redux';
 
 interface TimeSlotProps {
-  id: string;
-
-  startSlot: number;
-  dayOffset: number;
-
   className?: string;
   children?: React.ReactNode;
 }
-export default function TimeSlot({
-  id,
-  className,
-  startSlot,
-  dayOffset,
-}: Readonly<TimeSlotProps>) {
-  // const { setNodeRef } = useDroppable({
-  //   id,
-  //   data: {
-  //     startSlot,
-  //     dayOffset,
-  //   },
-  // });
-
-  console.log('render time slot');
-
+export default function TimeSlot({ className }: Readonly<TimeSlotProps>) {
+  const snappedHeight = useSelector(snappedHeightSelector);
   return (
     <div
-      // ref={setNodeRef}
-      className={cn(
-        className,
-        'h-6 relative transition-colors duration-200 pr-3'
-      )}
+      className={cn(className, `relative transition-colors duration-200 pr-3`)}
+      style={{
+        height: `${snappedHeight}px`,
+      }}
     ></div>
   );
 }

@@ -1,4 +1,3 @@
-import { SLOT_DURATION_MINUTES, SLOT_HEIGHT_PX } from '@/constants/calendar';
 import { useDraggable } from '@dnd-kit/core';
 import { cn } from '@ttrak/ui/lib/utils';
 import { useEffect, useRef, useState } from 'react';
@@ -6,6 +5,7 @@ import useTaskStore from '../hooks/use-task-store';
 
 import { MoveRight } from 'lucide-react';
 import { Task } from '@ttrak/types/task';
+import useCalendar from '@/modules/calendar/hooks/use-calendar';
 
 export type ScheduledTaskProps = Pick<
   Task,
@@ -20,25 +20,25 @@ export default function ScheduledTask({
   id,
   startSlot,
   slotCount,
-  style: externalStyle,
 }: ScheduledTaskProps) {
   const [isResizing, setIsResizing] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const { getTaskById, draftTask, updateTaskSlotCount } = useTaskStore();
+  const { getTaskById, updateTaskSlotCount } = useTaskStore();
+  const { snappedMinutes, pixelsPerMinute } = useCalendar();
 
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,
     data: getTaskById(id),
     disabled: isResizing,
   });
+  const verticalSlotOffset = Math.floor((transform?.y ?? 0) / pixelsPerMinute);
 
   const style = {
-    top: `${(startSlot ?? 0) * SLOT_HEIGHT_PX}px`,
-    height: `${slotCount * SLOT_HEIGHT_PX}px`,
+    top: `${(startSlot ?? 0) * pixelsPerMinute}px`,
+    height: `${slotCount * pixelsPerMinute}px`,
     transform: transform
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
       : undefined,
-    ...externalStyle,
   };
 
   const formatTime = (minutes: number) => {
@@ -49,8 +49,12 @@ export default function ScheduledTask({
     return `${formattedHours}:${mins.toString().padStart(2, '0')} ${period}`;
   };
 
-  const startTime = formatTime(startSlot * SLOT_DURATION_MINUTES);
-  const endTime = formatTime((startSlot + slotCount) * SLOT_DURATION_MINUTES);
+  const startTime = formatTime(
+    (startSlot + verticalSlotOffset) * snappedMinutes
+  );
+  const endTime = formatTime(
+    (startSlot + verticalSlotOffset + slotCount) * snappedMinutes
+  );
 
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -70,7 +74,7 @@ export default function ScheduledTask({
       if (!rect) return;
 
       const offsetY = e.clientY - rect.top;
-      const newSlotCount = Math.max(1, Math.round(offsetY / SLOT_HEIGHT_PX));
+      const newSlotCount = Math.max(1, Math.round(offsetY / pixelsPerMinute));
       updateTaskSlotCount(id, newSlotCount);
     };
 
@@ -84,7 +88,7 @@ export default function ScheduledTask({
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isResizing]);
+  }, [isResizing, pixelsPerMinute]);
 
   if (startSlot === null) return null;
 
@@ -93,8 +97,6 @@ export default function ScheduledTask({
       className={cn(
         'absolute z-10 overflow-hidden bg-layer1 border border-aqua-breeze text-white text-xs rounded p-1 transition-opacity duration-100',
         {
-          'opacity-0 pointer-events-none': draftTask?.id === id,
-          'opacity-100': !draftTask,
           'cursor-pointer': !isResizing,
         }
       )}

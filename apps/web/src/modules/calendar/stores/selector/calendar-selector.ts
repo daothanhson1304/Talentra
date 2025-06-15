@@ -5,3 +5,12 @@ export const currentWeekSelector = (state: RootState) =>
 
 export const currentWeekOffsetSelector = (state: RootState) =>
   state.calendar.currentWeekOffset;
+
+export const snappedMinutesSelector = (state: RootState) =>
+  state.calendar.snappedMinutes;
+
+export const snappedHeightSelector = (state: RootState) =>
+  state.calendar.snappedHeight;
+
+export const widthPerDaySelector = (state: RootState) =>
+  state.calendar.widthPerDay;

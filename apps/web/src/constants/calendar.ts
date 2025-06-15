@@ -1,3 +1,3 @@
-export const SLOT_HEIGHT_PX = 24;
+export const HOURS_IN_DAY_COLUMN_WIDTH = 120;
 
-export const SLOT_DURATION_MINUTES = 15; // minutes
+export const SCROLLBAR_WIDTH = 8; // scrollbar width in global.css

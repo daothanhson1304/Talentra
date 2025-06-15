@@ -1,4 +1,6 @@
-import CalendarPanel from '@/modules/calendar/components/calendar-panel';
+import CalendarPanel, {
+  CalendarPanelCalculation,
+} from '@/modules/calendar/components/calendar-panel';
 import DragDropProvider from '@/modules/app/drag-drop/components/drag-drop-provider';
 import {
   ResizablePanelGroup,
@@ -20,7 +22,9 @@ export default function AppLayout() {
           </ResizablePanel>
           <ResizableHandle className='bg-secondary' />
           <ResizablePanel>
-            <CalendarPanel />
+            <CalendarPanelCalculation>
+              <CalendarPanel />
+            </CalendarPanelCalculation>
           </ResizablePanel>
         </ResizablePanelGroup>
       </DragDropProvider>

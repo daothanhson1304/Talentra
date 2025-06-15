@@ -15,11 +15,7 @@ export default function EmployeePanel() {
           </div>
         </div>
         <div className='mt-4'>
-          <SearchEmployee
-            onSearch={searchTerm => {
-              console.log(searchTerm);
-            }}
-          />
+          <SearchEmployee onSearch={() => {}} />
         </div>
       </div>
       <EmployeeList />

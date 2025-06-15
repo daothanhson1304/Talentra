@@ -15,7 +15,6 @@ export default function CalendarHeader() {
   const currentWeekOffset = useSelector(currentWeekOffsetSelector);
   const currentWeek = useSelector(currentWeekSelector);
   const days = getCurrentWeekDays(currentWeekOffset);
-  console.log(days, currentWeekOffset, currentWeek);
   const firstMonthOfWeek = new Date(days[0] ?? '');
   const lastMonthOfWeek = new Date(days[6] ?? '');
   const firstMonth = getMonth(firstMonthOfWeek.toISOString());

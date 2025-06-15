@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Importance, Task } from '@ttrak/types/task';
+import dayjs from 'dayjs';
 export interface TaskState {
   items: Task[];
-  draftTask: Task | null;
+  draggingTaskId: string | null;
 }
 
 const initialState: TaskState = {
@@ -11,8 +12,8 @@ const initialState: TaskState = {
       id: '1',
       day: '2025-06-10T00:00:00Z',
       title: 'Little Master 5 - Mrs. Alice',
-      slotCount: 3,
-      startSlot: 5,
+      slotCount: 22,
+      startSlot: 15,
       scheduled: true,
       description: 'Take care of the children',
       importance: Importance.medium,
@@ -21,8 +22,8 @@ const initialState: TaskState = {
       id: '2',
       day: '2025-06-11T00:00:00Z',
       title: 'Elementary 1 - Mrs. Alice',
-      slotCount: 4,
-      startSlot: 2,
+      slotCount: 25,
+      startSlot: 17,
       scheduled: true,
       description: 'Take care of the children',
       importance: Importance.medium,
@@ -31,7 +32,7 @@ const initialState: TaskState = {
       id: '3',
       day: '2025-06-13T00:00:00Z',
       title: 'Bần 2 - Mrs. Alice',
-      slotCount: 8,
+      slotCount: 18,
       startSlot: 18,
       scheduled: true,
       description: 'Take care of the children',
@@ -159,7 +160,7 @@ const initialState: TaskState = {
       importance: Importance.medium,
     },
   ],
-  draftTask: null,
+  draggingTaskId: null,
 };
 
 const taskSlice = createSlice({
@@ -172,8 +173,8 @@ const taskSlice = createSlice({
     removeTask: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter(task => task.id !== action.payload);
     },
-    setDraftTask: (state, action: PayloadAction<Task | null>) => {
-      state.draftTask = action.payload;
+    setDraggingTaskId: (state, action: PayloadAction<string | null>) => {
+      state.draggingTaskId = action.payload;
     },
     updateSlotCount: (
       state,
@@ -198,12 +199,14 @@ const taskSlice = createSlice({
     },
     updateScheduledTask: (
       state,
-      action: PayloadAction<{ id: string; day: string; startSlot: number }>
+      action: PayloadAction<{ id: string; dayCount: number; startSlot: number }>
     ) => {
       const task = state.items.find(task => task.id === action.payload.id);
       if (task) {
-        task.day = action.payload.day;
-        task.startSlot = action.payload.startSlot;
+        task.day = dayjs(task.day)
+          .add(action.payload.dayCount, 'day')
+          .toISOString();
+        task.startSlot = task.startSlot + action.payload.startSlot;
       }
     },
   },
@@ -213,8 +216,8 @@ export const {
   addTask,
   makeScheduledTask,
   removeTask,
-  setDraftTask,
   updateSlotCount,
   updateScheduledTask,
+  setDraggingTaskId,
 } = taskSlice.actions;
 export default taskSlice.reducer;

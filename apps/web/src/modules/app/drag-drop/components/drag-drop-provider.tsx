@@ -5,45 +5,31 @@ import {
   DragOverEvent,
   DragStartEvent,
 } from '@dnd-kit/core';
-import useDragDropTask from '../../../task/hooks/use-drag-drop-task.js';
-import { currentWeekOffsetSelector } from '@/modules/calendar/stores/selector/calendar-selector.js';
-import { useSelector } from 'react-redux';
-import { getDayOfWeek } from '@/modules/calendar/helpers/date.js';
+import useCalendar from '@/modules/calendar/hooks/use-calendar';
 
 export default function DragDropProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { scheduleTask, updateScheduledTask } = useTaskStore();
-  const { dragOverHandler, clearDraftState } = useDragDropTask();
-  const currentWeekOffset = useSelector(currentWeekOffsetSelector);
-  const handleDragStart = (event: DragStartEvent) => {};
+  const { createDraggingTask, clearDraggingTask, updateScheduledTask } =
+    useTaskStore();
+  const { pixelsPerMinute, widthPerDay } = useCalendar();
+  const handleDragStart = (event: DragStartEvent) => {
+    // console.log('handleDragStart', event);
+    createDraggingTask(event.active.id as string);
+  };
   const handleDragOver = (event: DragOverEvent) => {
-    dragOverHandler(event);
+    // dragOverHandler(event);
+    console.log('handleDragOver', event);
   };
   const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    if (!over || !active) return;
-    const day = getDayOfWeek(
-      currentWeekOffset,
-      over.data.current?.dayOffset as number
-    ) as string;
-    if (active.data.current?.scheduled) {
-      updateScheduledTask(
-        active.id as string,
-        day,
-        over.data.current?.startSlot as number
-      );
-    } else {
-      scheduleTask(
-        active.id as string,
-        day,
-        over?.data.current?.startSlot as number
-      );
-    }
-
-    clearDraftState();
+    // console.log('handleDragEnd', event);
+    const { x, y } = event.delta;
+    const nextSlot = Math.floor(y / pixelsPerMinute);
+    const nextDay = Math.floor(x / widthPerDay);
+    updateScheduledTask(event.active.id as string, nextDay, nextSlot);
+    clearDraggingTask();
   };
   return (
     <DndContext
