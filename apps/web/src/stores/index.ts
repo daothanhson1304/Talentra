@@ -3,6 +3,7 @@ import sidebarReducer from '@/modules/app/sidebar/stores/slice/sidebar-slice';
 import taskReducer from '@/modules/task/stores/slice/task-slice';
 import employeeReducer from '@/modules/employee/stores/slice/employee-slice';
 import calendarReducer from '@/modules/calendar/stores/slice/calendar-slice';
+import dragDropReducer from '@/modules/app/drag-drop/stores/slice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     sidebar: sidebarReducer,
     employee: employeeReducer,
     calendar: calendarReducer,
+    dragDrop: dragDropReducer,
   },
 });
 

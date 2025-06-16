@@ -8,6 +8,7 @@ interface TimeSlotProps {
 }
 export default function TimeSlot({ className }: Readonly<TimeSlotProps>) {
   const snappedHeight = useSelector(snappedHeightSelector);
+  console.log('time slot');
   return (
     <div
       className={cn(className, `relative transition-colors duration-200 pr-3`)}

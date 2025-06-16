@@ -7,7 +7,7 @@ export default function MainSidebar() {
   const { activeTab } = useGetSidebarState();
 
   return (
-    <div className='h-full relative'>
+    <div className='h-full relative z-10'>
       {activeTab === SidebarTab.EMPLOYEE && <EmployeePanel />}
       {activeTab === SidebarTab.TASK && <TaskPanel />}
     </div>

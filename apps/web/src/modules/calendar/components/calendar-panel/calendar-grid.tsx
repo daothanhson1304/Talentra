@@ -10,17 +10,13 @@ import HoursOfTheDay from './hours-of-the-day';
 import TimeSlotInDay from './time-slot-in-day';
 import { useDroppable } from '@dnd-kit/core';
 import { HOURS_IN_DAY_COLUMN_WIDTH } from '@/constants/calendar';
+import { memo } from 'react';
 
 export default function CalendarGrid() {
   const { setNodeRef } = useDroppable({
     id: 'calendar-grid',
-    data: {
-      position: 'calendar-grid',
-    },
     disabled: false,
   });
-
-  console.log('render');
 
   return (
     <div className='overflow-hidden flex'>
@@ -30,6 +26,9 @@ export default function CalendarGrid() {
       <div
         ref={node => {
           setNodeRef(node);
+        }}
+        onMouseOver={e => {
+          console.log('mouse over', e);
         }}
         className={cn(
           'grid grid-cols-7 border-t border-charcoal-gray relative flex-1'
@@ -51,7 +50,7 @@ export default function CalendarGrid() {
   );
 }
 
-const ScheduledTaskGrid = ({ dayOffset }: { dayOffset: number }) => {
+const ScheduledTaskGrid = memo(({ dayOffset }: { dayOffset: number }) => {
   const { tasks } = useTaskStore();
   const currentWeekOffset = useSelector(currentWeekOffsetSelector);
   const day = getDayOfWeek(currentWeekOffset, dayOffset);
@@ -74,4 +73,4 @@ const ScheduledTaskGrid = ({ dayOffset }: { dayOffset: number }) => {
       ))}
     </div>
   );
-};
+});

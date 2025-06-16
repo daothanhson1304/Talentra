@@ -9,7 +9,7 @@ import CreateTaskPopover from '../create-task-popover';
 
 export default function TaskPanel() {
   return (
-    <section className='bg-layer0 p-4 h-full w-full overflow-y-auto pt-0'>
+    <section className='bg-layer0 p-4 h-full w-full pt-0 max-w-full overflow-x-hidden overflow-y-auto'>
       <div className='flex items-start justify-between items-center gap-8 pb-2 sticky top-0 z-10 bg-layer0 pt-4'>
         <TaskTitle />
         <div className='flex text-primary-foreground justify-end items-center gap-3 flex-1'>

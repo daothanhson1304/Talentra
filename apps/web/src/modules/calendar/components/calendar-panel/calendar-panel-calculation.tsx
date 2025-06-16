@@ -37,7 +37,7 @@ const CalendarPanelCalculation = ({
   return (
     <section
       ref={containerRef}
-      className='flex-1 bg-layer1 text-white h-dvh relative pl-4'
+      className='flex-1 bg-layer1 text-white h-dvh relative pl-4 relative z-5'
     >
       {children}
     </section>
