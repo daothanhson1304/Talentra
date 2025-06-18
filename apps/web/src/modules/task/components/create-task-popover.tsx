@@ -61,7 +61,7 @@ export default function CreateTaskPopover() {
       importance: values.importance ?? Importance.medium,
       day: new Date().toISOString(),
       startSlot: 0,
-      slotCount: 1,
+      slotCount: 6,
       scheduled: false,
     });
     toast('Task has been created', {

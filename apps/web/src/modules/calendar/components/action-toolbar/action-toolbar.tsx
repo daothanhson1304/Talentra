@@ -12,12 +12,12 @@ import {
   TooltipTrigger,
 } from '@ttrak/ui/components/tooltip';
 import { setCurrentWeekOffset } from '../../stores/slice/calendar-slice';
-import { useDispatch, useSelector } from 'react-redux';
-import { currentWeekOffsetSelector } from '../../stores/selector/calendar-selector';
+import { useDispatch } from 'react-redux';
+import useCalendar from '../../hooks/use-calendar';
 
 export default function ActionToolbar() {
   const dispatch = useDispatch();
-  const currentWeekOffset = useSelector(currentWeekOffsetSelector);
+  const { currentWeekOffset, currentWeek } = useCalendar();
   const actions = [
     {
       icon: (
@@ -26,7 +26,7 @@ export default function ActionToolbar() {
           className='cursor-pointer text-primary-foreground'
         />
       ),
-      label: 'Previous week',
+      label: `Week ${currentWeek - 1 + currentWeekOffset}`,
       onClick: () => {
         dispatch(setCurrentWeekOffset(currentWeekOffset - 1));
       },
@@ -47,7 +47,7 @@ export default function ActionToolbar() {
           className='cursor-pointer text-primary-foreground'
         />
       ),
-      label: 'Next week',
+      label: `Week ${currentWeek + 1 + currentWeekOffset}`,
       onClick: () => {
         dispatch(setCurrentWeekOffset(currentWeekOffset + 1));
       },

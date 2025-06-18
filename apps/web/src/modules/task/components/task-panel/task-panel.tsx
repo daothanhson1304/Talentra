@@ -34,7 +34,7 @@ const TaskTitle = () => {
         className='bg-layer2 rounded-sm cursor-pointer p-1'
         onClick={() => setActiveTab(SidebarTab.EMPLOYEE)}
       />
-      Tasks of {employee?.name}
+      Assigned Tasks - {employee?.name}
     </h2>
   );
 };

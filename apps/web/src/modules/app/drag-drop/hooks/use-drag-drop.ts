@@ -29,36 +29,43 @@ export default function useDragDrop() {
     dispatch(setIsDragOver(true));
   };
   const handleDragEnd = (event: DragEndEvent) => {
-    const { delta, active } = event;
-    if (active.data.current?.scheduled === false) {
-      const startSlot = Math.floor(
-        (delta.y +
-          active.data.current?.distanceFromTop -
-          ACTION_TOOLBAR_HEIGHT) /
-          pixelsPerMinute
-      );
-      const daySlot = Math.floor(
-        (delta.x -
-          active.data.current?.itemWidth -
-          PADDING_PANEL * 3 -
-          TIME_LINE_WIDTH) /
-          widthPerDay
-      );
-      const firstDayOffWeek = daysOfWeek[0];
-      const nextDay = dayjs(firstDayOffWeek).add(daySlot, 'day').toISOString();
+    if (!isDragOver) return;
 
+    const { delta, active } = event;
+    const { scheduled, day, distanceFromTop, itemWidth } =
+      active.data.current || {};
+
+    const calculateNextDay = (baseDay: string, dayOffset: number) => {
+      return dayjs(baseDay).add(dayOffset, 'day').toISOString();
+    };
+
+    const calculateDayOffset = (x: number) => {
+      return Math.floor(x / widthPerDay);
+    };
+
+    const calculateStartSlot = (y: number) => {
+      return Math.floor(y / pixelsPerMinute);
+    };
+
+    if (!scheduled) {
+      const startSlot = calculateStartSlot(
+        delta.y + distanceFromTop - ACTION_TOOLBAR_HEIGHT
+      );
+
+      const daySlot = calculateDayOffset(
+        delta.x - itemWidth - PADDING_PANEL * 3 - TIME_LINE_WIDTH
+      );
+
+      const nextDay = calculateNextDay(daysOfWeek[0] ?? '', daySlot);
       updateScheduledTask(active.id as string, nextDay, startSlot);
     } else {
       clearDraggingTask();
-
-      const { x, y } = delta;
-      const nextSlot = Math.floor(y / pixelsPerMinute);
-      const nextDay = dayjs(active.data.current?.day)
-        .add(Math.floor(x / widthPerDay), 'day')
-        .toISOString();
+      const nextSlot = calculateStartSlot(delta.y);
       if (nextSlot === 0) return;
+      const nextDay = calculateNextDay(day, calculateDayOffset(delta.x));
       updateScheduledTask(active.id as string, nextDay, nextSlot);
     }
+
     dispatch(setIsDragOver(false));
   };
 
