@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Importance, Task } from '@ttrak/types/task';
-import dayjs from 'dayjs';
 export interface TaskState {
   items: Task[];
   draggingTaskId: string | null;
