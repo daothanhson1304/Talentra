@@ -10,9 +10,9 @@ const initialState: TaskState = {
   items: [
     {
       id: '1',
-      day: '2025-06-10T00:00:00Z',
+      day: '2025-06-17T00:00:00Z',
       title: 'Little Master 5 - Mrs. Alice',
-      slotCount: 22,
+      slotCount: 20,
       startSlot: 15,
       scheduled: true,
       description: 'Take care of the children',
@@ -20,9 +20,9 @@ const initialState: TaskState = {
     },
     {
       id: '2',
-      day: '2025-06-11T00:00:00Z',
+      day: '2025-06-18T00:00:00Z',
       title: 'Elementary 1 - Mrs. Alice',
-      slotCount: 25,
+      slotCount: 12,
       startSlot: 17,
       scheduled: true,
       description: 'Take care of the children',
@@ -30,7 +30,7 @@ const initialState: TaskState = {
     },
     {
       id: '3',
-      day: '2025-06-13T00:00:00Z',
+      day: '2025-06-20T00:00:00Z',
       title: 'Bần 2 - Mrs. Alice',
       slotCount: 18,
       startSlot: 18,
@@ -40,9 +40,9 @@ const initialState: TaskState = {
     },
     {
       id: '4',
-      day: null,
+      day: '2025-06-16T00:00:00Z',
       title: 'Nhân hòa 1 - Mrs. Alice',
-      slotCount: 2,
+      slotCount: 6,
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
@@ -50,9 +50,9 @@ const initialState: TaskState = {
     },
     {
       id: '5',
-      day: null,
+      day: '2025-06-16T00:00:00Z',
       title: 'Phùng Chí Kiên - Mrs. Alice',
-      slotCount: 2,
+      slotCount: 6,
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
@@ -61,9 +61,9 @@ const initialState: TaskState = {
 
     {
       id: '6',
-      day: null,
+      day: '2025-06-16T00:00:00Z',
       title: 'Little Master 5 - Mrs. Alice',
-      slotCount: 2,
+      slotCount: 6,
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
@@ -71,9 +71,9 @@ const initialState: TaskState = {
     },
     {
       id: '7',
-      day: null,
+      day: '2025-06-16T00:00:00Z',
       title: 'Elementary 1 - Mrs. Alice',
-      slotCount: 2,
+      slotCount: 6,
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
@@ -81,9 +81,9 @@ const initialState: TaskState = {
     },
     {
       id: '8',
-      day: null,
+      day: '2025-06-16T00:00:00Z',
       title: 'Bần 2 - Mrs. Alice',
-      slotCount: 2,
+      slotCount: 6,
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
@@ -91,9 +91,9 @@ const initialState: TaskState = {
     },
     {
       id: '9',
-      day: null,
+      day: '2025-06-16T00:00:00Z',
       title: 'Nhân hòa 1 - Mrs. Alice',
-      slotCount: 2,
+      slotCount: 6,
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
@@ -101,9 +101,9 @@ const initialState: TaskState = {
     },
     {
       id: '10',
-      day: null,
+      day: '2025-06-16T00:00:00Z',
       title: 'Phùng Chí Kiên - Mrs. Alice',
-      slotCount: 2,
+      slotCount: 6,
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
@@ -111,9 +111,9 @@ const initialState: TaskState = {
     },
     {
       id: '11',
-      day: null,
+      day: '2025-06-16T00:00:00Z',
       title: 'Little Master 5 - Mrs. Alice',
-      slotCount: 2,
+      slotCount: 6,
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
@@ -121,9 +121,9 @@ const initialState: TaskState = {
     },
     {
       id: '12',
-      day: null,
+      day: '2025-06-16T00:00:00Z',
       title: 'Elementary 1 - Mrs. Alice',
-      slotCount: 2,
+      slotCount: 6,
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
@@ -131,7 +131,7 @@ const initialState: TaskState = {
     },
     {
       id: '13',
-      day: '2025-06-14T00:00:00Z',
+      day: '2025-06-21T00:00:00Z',
       title: 'Bần 2 - Mrs. Alice',
       slotCount: 8,
       startSlot: 14,
@@ -141,9 +141,9 @@ const initialState: TaskState = {
     },
     {
       id: '14',
-      day: null,
+      day: '2025-06-16T00:00:00Z',
       title: 'Nhân hòa 1 - Mrs. Alice',
-      slotCount: 2,
+      slotCount: 6,
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
@@ -151,9 +151,9 @@ const initialState: TaskState = {
     },
     {
       id: '15',
-      day: null,
+      day: '2025-06-16T00:00:00Z',
       title: 'Phùng Chí Kiên - Mrs. Alice',
-      slotCount: 2,
+      slotCount: 6,
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
@@ -161,9 +161,9 @@ const initialState: TaskState = {
     },
     {
       id: '16',
-      day: null,
+      day: '2025-06-16T00:00:00Z',
       title: 'Little Master 5 - Mrs. Alice',
-      slotCount: 2,
+      slotCount: 6,
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
@@ -171,9 +171,9 @@ const initialState: TaskState = {
     },
     {
       id: '17',
-      day: null,
+      day: '2025-06-16T00:00:00Z',
       title: 'Elementary 1 - Mrs. Alice',
-      slotCount: 2,
+      slotCount: 6,
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
@@ -181,9 +181,9 @@ const initialState: TaskState = {
     },
     {
       id: '18',
-      day: null,
+      day: '2025-06-16T00:00:00Z',
       title: 'Bần 2 - Mrs. Alice',
-      slotCount: 2,
+      slotCount: 6,
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
@@ -191,9 +191,9 @@ const initialState: TaskState = {
     },
     {
       id: '19',
-      day: null,
+      day: '2025-06-16T00:00:00Z',
       title: 'Nhân hòa 1 - Mrs. Alice',
-      slotCount: 2,
+      slotCount: 6,
       startSlot: 0,
       scheduled: false,
       description: 'Take care of the children',
@@ -239,14 +239,13 @@ const taskSlice = createSlice({
     },
     updateScheduledTask: (
       state,
-      action: PayloadAction<{ id: string; dayCount: number; startSlot: number }>
+      action: PayloadAction<{ id: string; day: string; startSlot: number }>
     ) => {
       const task = state.items.find(task => task.id === action.payload.id);
       if (task) {
-        task.day = dayjs(task.day)
-          .add(action.payload.dayCount, 'day')
-          .toISOString();
+        task.day = action.payload.day;
         task.startSlot = task.startSlot + action.payload.startSlot;
+        task.scheduled = true;
       }
     },
   },

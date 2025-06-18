@@ -8,16 +8,18 @@ export default function TaskList() {
   return (
     <div className='mb-6'>
       <ul className='task-list space-y-2'>
-        {tasks.map(task => {
-          if (task.scheduled) return null;
-          return (
-            <TaskItem
-              key={task.id}
-              task={task}
-              isHidden={task.id === draggingTaskId}
-            />
-          );
-        })}
+        {tasks
+          .filter(task => !task.scheduled)
+          .map((task, index) => {
+            return (
+              <TaskItem
+                key={task.id}
+                task={task}
+                isHidden={task.id === draggingTaskId}
+                index={index}
+              />
+            );
+          })}
       </ul>
     </div>
   );

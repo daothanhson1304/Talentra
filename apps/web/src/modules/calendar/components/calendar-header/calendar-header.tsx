@@ -36,29 +36,34 @@ export default function CalendarHeader() {
           </>
         )}
       </div>
-      <div className='grid grid-cols-8'>
-        <div className='col-span-1 border-charcoal-gray relative flex items-center justify-left text-xs text-primary-foreground'>
+      <div className='flex'>
+        <div
+          className='border-charcoal-gray relative flex items-center justify-left text-xs text-primary-foreground'
+          style={{ width: '120px' }}
+        >
           W {currentWeek + currentWeekOffset}
         </div>
-        {days.map(day => {
-          const { weekday, dayNum } = getDayInfo(day);
-          const isToday = isSameDay(day, new Date().toISOString());
-          return (
-            <div
-              key={day}
-              className='text-base  text-center flex items-center justify-center gap-2'
-            >
-              {weekday}{' '}
-              {isToday ? (
-                <span className='rounded-full bg-primary text-white w-6 h-6 text-sm flex items-center justify-center'>
-                  {dayNum}
-                </span>
-              ) : (
-                dayNum
-              )}
-            </div>
-          );
-        })}
+        <div className='grid grid-cols-7 flex-1'>
+          {days.map(day => {
+            const { weekday, dayNum } = getDayInfo(day);
+            const isToday = isSameDay(day, new Date().toISOString());
+            return (
+              <div
+                key={day}
+                className='text-base  text-center flex items-center justify-center gap-2'
+              >
+                {weekday}{' '}
+                {isToday ? (
+                  <span className='rounded-full bg-primary text-white w-6 h-6 text-sm flex items-center justify-center'>
+                    {dayNum}
+                  </span>
+                ) : (
+                  dayNum
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

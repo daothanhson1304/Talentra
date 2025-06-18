@@ -3,11 +3,11 @@ import TimeSlot from './time-slot';
 
 const hours = Array.from({ length: 24 }, (_, i) => i);
 
-interface TimeSlotInDayProps {
+interface DailyTimelineProps {
   dayOffset: number;
 }
 
-const TimeSlotInDay = ({ dayOffset }: TimeSlotInDayProps) => {
+const DailyTimeline = ({ dayOffset }: DailyTimelineProps) => {
   return (
     <>
       {hours.map((_, hourIndex) => (
@@ -25,4 +25,4 @@ const TimeSlotInDay = ({ dayOffset }: TimeSlotInDayProps) => {
     </>
   );
 };
-export default memo(TimeSlotInDay);
+export default memo(DailyTimeline);

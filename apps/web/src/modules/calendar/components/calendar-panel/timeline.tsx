@@ -3,7 +3,7 @@ import { formatHour } from '../../helpers/date';
 
 const hours = Array.from({ length: 24 }, (_, i) => i);
 
-const HoursOfTheDay = () => {
+const Timeline = () => {
   return (
     <>
       {hours.map(h => (
@@ -14,4 +14,4 @@ const HoursOfTheDay = () => {
     </>
   );
 };
-export default memo(HoursOfTheDay);
+export default memo(Timeline);

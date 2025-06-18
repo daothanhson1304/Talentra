@@ -1,9 +1,6 @@
 import { useEffect, useRef } from 'react';
 import useCalendar from '../../hooks/use-calendar';
-import {
-  HOURS_IN_DAY_COLUMN_WIDTH,
-  SCROLLBAR_WIDTH,
-} from '@/constants/calendar';
+import { HOURS_IN_DAY_COLUMN_WIDTH, SCROLLBAR_WIDTH } from '@/constants';
 
 const CalendarPanelCalculation = ({
   children,

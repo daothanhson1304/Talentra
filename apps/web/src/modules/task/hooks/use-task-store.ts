@@ -22,10 +22,10 @@ export default function useTaskStore() {
   };
   const updateScheduledTask = (
     taskId: string,
-    dayCount: number,
+    day: string,
     startSlot: number
   ) => {
-    dispatch(updateScheduledTaskAction({ id: taskId, dayCount, startSlot }));
+    dispatch(updateScheduledTaskAction({ id: taskId, day, startSlot }));
   };
   const getTaskById = (taskId: string) => {
     return tasks.find(task => task.id === taskId);

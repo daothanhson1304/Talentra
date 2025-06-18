@@ -6,10 +6,10 @@ import { getDayOfWeek, isSameDay } from '@/modules/calendar/helpers/date';
 import useTaskStore from '@/modules/task/hooks/use-task-store';
 import { currentWeekOffsetSelector } from '../../stores/selector/calendar-selector';
 import { useSelector } from 'react-redux';
-import HoursOfTheDay from './hours-of-the-day';
-import TimeSlotInDay from './time-slot-in-day';
+import Timeline from './timeline';
+import DailyTimeline from './daily-timeline';
 import { useDroppable } from '@dnd-kit/core';
-import { HOURS_IN_DAY_COLUMN_WIDTH } from '@/constants/calendar';
+import { HOURS_IN_DAY_COLUMN_WIDTH } from '@/constants';
 import { memo } from 'react';
 
 export default function CalendarGrid() {
@@ -21,14 +21,11 @@ export default function CalendarGrid() {
   return (
     <div className='overflow-hidden flex'>
       <div style={{ width: HOURS_IN_DAY_COLUMN_WIDTH }}>
-        <HoursOfTheDay />
+        <Timeline />
       </div>
       <div
         ref={node => {
           setNodeRef(node);
-        }}
-        onMouseOver={e => {
-          console.log('mouse over', e);
         }}
         className={cn(
           'grid grid-cols-7 border-t border-charcoal-gray relative flex-1'
@@ -40,7 +37,7 @@ export default function CalendarGrid() {
               className='col-span-1 border-l border-charcoal-gray relative'
               key={i}
             >
-              <TimeSlotInDay dayOffset={i} />
+              <DailyTimeline dayOffset={i} />
               <ScheduledTaskGrid dayOffset={i} />
             </div>
           );

@@ -103,7 +103,7 @@ export default function ScheduledTask({
       style={style}
     >
       <div
-        className='w-full h-full flex items-start gap-2 cursor-pointer'
+        className='w-full h-full flex items-start gap-2 cursor-grab'
         ref={node => {
           setNodeRef(node);
           ref.current = node;
