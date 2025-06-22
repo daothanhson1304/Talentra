@@ -16,7 +16,7 @@ const initialState: CalendarState = {
   snappedMinutes: 5,
   snappedHeight: 48,
   widthPerDay: 0,
-  scrollTop: 0, // set default scroll top to 7 days,
+  scrollTop: 7 * (48 * 2), // set default scroll top to 7 days,
 };
 
 const calendarSlice = createSlice({

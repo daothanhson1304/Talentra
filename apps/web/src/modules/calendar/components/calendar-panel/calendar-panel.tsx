@@ -14,9 +14,9 @@ export default function CalendarPanel() {
         </div>
         <CalendarHeader />
       </div>
-      <div className='overflow-auto h-[calc(100vh-96.8px)]'>
+      <CalendarScrollContainer>
         <CalendarGrid />
-      </div>
+      </CalendarScrollContainer>
     </>
   );
 }
