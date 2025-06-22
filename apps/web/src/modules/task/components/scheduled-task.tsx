@@ -13,6 +13,7 @@ export type ScheduledTaskProps = Pick<
 > & {
   style?: React.CSSProperties;
   isFirstInGroup?: boolean;
+  className?: string;
 };
 
 export default function ScheduledTask({
@@ -20,6 +21,7 @@ export default function ScheduledTask({
   id,
   startSlot,
   slotCount,
+  className,
 }: ScheduledTaskProps) {
   const [isResizing, setIsResizing] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -98,7 +100,8 @@ export default function ScheduledTask({
         'absolute z-10 overflow-hidden bg-layer1 border border-aqua-breeze text-white text-xs rounded p-1 transition-opacity duration-100',
         {
           'cursor-pointer': !isResizing,
-        }
+        },
+        className
       )}
       style={style}
     >

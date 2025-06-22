@@ -1,5 +1,8 @@
 .task-list {
   max-height: calc(100vh - 60px);
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 .toaster {
   --normal-bg: var(--layer1);

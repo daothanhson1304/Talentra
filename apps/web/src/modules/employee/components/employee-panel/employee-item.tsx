@@ -30,9 +30,7 @@ export default function EmployeeItem({
           <p className='text-sm text-muted-foreground'>{employee.email}</p>
         </div>
         <div className='flex items-center gap-2'>
-          <p className='text-sm text-muted-foreground text-primary'>
-            {employee.totalHours} Hrs
-          </p>
+          <p className='text-sm text-primary'>{employee.totalHours} Hrs</p>
         </div>
       </div>
     </div>

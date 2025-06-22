@@ -11,7 +11,7 @@ import {
 } from '@/constants';
 import dayjs from 'dayjs';
 
-export default function useDragDrop() {
+const useDragDrop = () => {
   const dispatch = useDispatch();
   const {
     createDraggingTask,
@@ -22,6 +22,7 @@ export default function useDragDrop() {
   const { pixelsPerMinute, widthPerDay, daysOfWeek } = useCalendar();
 
   const isDragOver = useSelector(isDragOverSelector);
+
   const handleDragStart = (event: DragStartEvent) => {
     createDraggingTask(event.active.id as string);
   };
@@ -29,6 +30,7 @@ export default function useDragDrop() {
     dispatch(setIsDragOver(true));
   };
   const handleDragEnd = (event: DragEndEvent) => {
+    clearDraggingTask();
     if (!isDragOver) return;
 
     const { delta, active } = event;
@@ -48,9 +50,9 @@ export default function useDragDrop() {
     };
 
     if (!scheduled) {
-      const startSlot = calculateStartSlot(
-        delta.y + distanceFromTop - ACTION_TOOLBAR_HEIGHT
-      );
+      const adjustedY = delta.y + distanceFromTop - ACTION_TOOLBAR_HEIGHT;
+
+      const startSlot = calculateStartSlot(adjustedY);
 
       const daySlot = calculateDayOffset(
         delta.x - itemWidth - PADDING_PANEL * 3 - TIME_LINE_WIDTH
@@ -59,7 +61,6 @@ export default function useDragDrop() {
       const nextDay = calculateNextDay(daysOfWeek[0] ?? '', daySlot);
       updateScheduledTask(active.id as string, nextDay, startSlot);
     } else {
-      clearDraggingTask();
       const nextSlot = calculateStartSlot(delta.y);
       if (nextSlot === 0) return;
       const nextDay = calculateNextDay(day, calculateDayOffset(delta.x));
@@ -78,4 +79,6 @@ export default function useDragDrop() {
     handleDragEnd,
     isDraggingUnscheduledTask,
   };
-}
+};
+
+export default useDragDrop;

@@ -18,7 +18,7 @@ export default function DragOverlayContent() {
           slotCount={6}
         />
       ) : (
-        <TaskItem task={draggingTask} index={0} />
+        <TaskItem task={draggingTask} index={0} className='w-fit' />
       )}
     </DragOverlay>
   );

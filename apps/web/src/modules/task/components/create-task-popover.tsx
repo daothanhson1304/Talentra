@@ -25,6 +25,11 @@ import useTaskStore from '../hooks/use-task-store';
 import { Importance } from '@ttrak/types/task';
 import { toast } from '@ttrak/ui/components/sonner';
 import dayjs from 'dayjs';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@ttrak/ui/components/tooltip';
 
 const formSchema = z.object({
   taskName: z.string().min(1, {
@@ -87,9 +92,14 @@ export default function CreateTaskPopover() {
 
   return (
     <Popover open={open} onOpenChange={handleOpenChange}>
-      <PopoverTrigger asChild>
-        <Plus className='bg-layer2 rounded-sm cursor-pointer p-1' />
-      </PopoverTrigger>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <PopoverTrigger asChild>
+            <Plus className='bg-layer2 rounded-sm cursor-pointer p-1' />
+          </PopoverTrigger>
+        </TooltipTrigger>
+        <TooltipContent>Create Task</TooltipContent>
+      </Tooltip>
       <PopoverContent className='w-[380px] border-none space-y-4 bg-layer3 text-white rounded-xl p-0'>
         <div className='bg-layer2 text-white rounded-xl p-4  border border-charcoal-gray'>
           <Form {...form}>

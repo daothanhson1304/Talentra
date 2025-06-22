@@ -6,14 +6,30 @@ import useSetSidebarState from '@/modules/app/sidebar/hooks/use-set-sidebar-stat
 import { SidebarTab } from '@/modules/app/sidebar/types';
 
 import CreateTaskPopover from '../create-task-popover';
+import { TASK_TITLE_PANEL_HEIGHT } from '@/constants';
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from '@ttrak/ui/components/tooltip';
 
 export default function TaskPanel() {
   return (
     <section className='bg-layer0 p-4 h-full w-full pt-0 max-w-full overflow-x-hidden overflow-y-auto'>
-      <div className='flex items-start justify-between items-center gap-8 pb-2 sticky top-0 z-10 bg-layer0 pt-4'>
+      <div
+        className='flex justify-between items-center gap-8 sticky top-0 z-10 bg-layer0 pt-4 pb-4'
+        style={{
+          height: TASK_TITLE_PANEL_HEIGHT,
+        }}
+      >
         <TaskTitle />
         <div className='flex text-primary-foreground justify-end items-center gap-3 flex-1'>
-          <ListFilter size={18} />
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <ListFilter size={18} className='cursor-pointer' />
+            </TooltipTrigger>
+            <TooltipContent>Filter</TooltipContent>
+          </Tooltip>
           <CreateTaskPopover />
         </div>
       </div>
@@ -29,11 +45,16 @@ const TaskTitle = () => {
     return getEmployeeById(selectedEmployeeId ?? '');
   }, [selectedEmployeeId]);
   return (
-    <h2 className='flex items-center gap-2 whitespace-nowrap'>
-      <ArrowLeft
-        className='bg-layer2 rounded-sm cursor-pointer p-1'
-        onClick={() => setActiveTab(SidebarTab.EMPLOYEE)}
-      />
+    <h2 className='flex items-center gap-2 whitespace-nowrap text-xl font-medium'>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <ArrowLeft
+            className='bg-layer2 rounded-sm cursor-pointer p-1'
+            onClick={() => setActiveTab(SidebarTab.EMPLOYEE)}
+          />
+        </TooltipTrigger>
+        <TooltipContent>Employees</TooltipContent>
+      </Tooltip>
       Assigned Tasks - {employee?.name}
     </h2>
   );

@@ -7,6 +7,7 @@ export interface CalendarState {
   snappedMinutes: number;
   snappedHeight: number;
   widthPerDay: number;
+  scrollTop: number;
 }
 
 const initialState: CalendarState = {
@@ -15,6 +16,7 @@ const initialState: CalendarState = {
   snappedMinutes: 5,
   snappedHeight: 48,
   widthPerDay: 0,
+  scrollTop: 0, // set default scroll top to 7 days,
 };
 
 const calendarSlice = createSlice({
@@ -30,8 +32,12 @@ const calendarSlice = createSlice({
     setWidthPerDay: (state, action: PayloadAction<number>) => {
       state.widthPerDay = action.payload;
     },
+    setScrollTop: (state, action: PayloadAction<number>) => {
+      state.scrollTop = action.payload;
+    },
   },
 });
 
-export const { setCurrentWeekOffset, setWidthPerDay } = calendarSlice.actions;
+export const { setCurrentWeekOffset, setWidthPerDay, setScrollTop } =
+  calendarSlice.actions;
 export default calendarSlice.reducer;

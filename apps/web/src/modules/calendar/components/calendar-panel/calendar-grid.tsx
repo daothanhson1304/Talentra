@@ -12,7 +12,7 @@ import { useDroppable } from '@dnd-kit/core';
 import { HOURS_IN_DAY_COLUMN_WIDTH } from '@/constants';
 import { memo } from 'react';
 
-export default function CalendarGrid() {
+const CalendarGrid = () => {
   const { setNodeRef } = useDroppable({
     id: 'calendar-grid',
     disabled: false,
@@ -45,7 +45,9 @@ export default function CalendarGrid() {
       </div>
     </div>
   );
-}
+};
+
+export default memo(CalendarGrid);
 
 const ScheduledTaskGrid = memo(({ dayOffset }: { dayOffset: number }) => {
   const { tasks } = useTaskStore();
@@ -66,6 +68,7 @@ const ScheduledTaskGrid = memo(({ dayOffset }: { dayOffset: number }) => {
           startSlot={task.startSlot}
           slotCount={task.slotCount}
           isFirstInGroup={task.isFirstInGroup}
+          className='w-[95%]'
         />
       ))}
     </div>

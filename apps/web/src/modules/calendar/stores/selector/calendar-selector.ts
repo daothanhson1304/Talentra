@@ -14,3 +14,5 @@ export const snappedHeightSelector = (state: RootState) =>
 
 export const widthPerDaySelector = (state: RootState) =>
   state.calendar.widthPerDay;
+
+export const scrollTopSelector = (state: RootState) => state.calendar.scrollTop;

@@ -23,7 +23,7 @@ export default function CalendarHeader() {
 
   return (
     <div className='flex flex-col pb-4 gap-6 bg-layer1 pt-1 z-10 border-b border-charcoal-gray'>
-      <div className='text-xl font-medium'>
+      <h2 className='text-xl font-medium'>
         {firstMonth === lastMonth ? (
           <>
             {firstMonth}
@@ -35,7 +35,7 @@ export default function CalendarHeader() {
             <span className='text-primary-foreground'> {year}</span>
           </>
         )}
-      </div>
+      </h2>
       <div className='flex'>
         <div
           className='border-charcoal-gray relative flex items-center justify-left text-xs text-primary-foreground'
