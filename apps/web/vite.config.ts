@@ -8,15 +8,15 @@ export default defineConfig(({ mode }) => {
     base: env.APP_BASE_NAME,
     plugins: [react()],
     envPrefix: 'APP_',
-    // server: {
-    //   proxy: {
-    //     '/api': {
-    //       target: env.APP_BASE_URL,
-    //       changeOrigin: true,
-    //       secure: false,
-    //     },
-    //   },
-    // },
+    server: {
+      proxy: {
+        '/api': {
+          target: env.APP_BASE_URL,
+          changeOrigin: true,
+          secure: false,
+        },
+      },
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),

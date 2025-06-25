@@ -13,12 +13,12 @@ export default function DragOverlayContent() {
       {isDragOver ? (
         <ScheduledTask
           title={draggingTask.title}
-          id='dragging-task'
+          _id='dragging-task'
           startSlot={0}
           slotCount={6}
         />
       ) : (
-        <TaskItem task={draggingTask} index={0} className='w-fit' />
+        <TaskItem task={draggingTask} index={0} />
       )}
     </DragOverlay>
   );

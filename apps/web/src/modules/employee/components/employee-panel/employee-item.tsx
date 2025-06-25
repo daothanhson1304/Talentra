@@ -17,7 +17,7 @@ export default function EmployeeItem({
     <div
       className='flex items-start gap-4 cursor-pointer hover:bg-layer3 rounded-md p-2 '
       onClick={() => {
-        onSelect(employee.id);
+        onSelect(employee._id);
       }}
     >
       <Avatar className='w-10 h-10 border border-border flex items-center justify-center bg-white text-primary'>
@@ -30,7 +30,7 @@ export default function EmployeeItem({
           <p className='text-sm text-muted-foreground'>{employee.email}</p>
         </div>
         <div className='flex items-center gap-2'>
-          <p className='text-sm text-primary'>{employee.totalHours} Hrs</p>
+          <p className='text-sm text-primary'>8 Hrs</p>
         </div>
       </div>
     </div>

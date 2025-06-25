@@ -1,10 +1,20 @@
 import TaskItem from './task-item';
 import useTaskStore from '../../hooks/use-task-store';
+import { useGetEmployeeState } from '@/modules/employee/hooks/use-get-employee-state';
+import { useGetTaskByEmployeeIdQuery } from '../../stores/api/task.api';
 
 export default function TaskList() {
-  const { tasks } = useTaskStore();
-  const { draggingTaskId } = useTaskStore();
+  const { selectedEmployeeId } = useGetEmployeeState();
 
+  const { data: tasks } = useGetTaskByEmployeeIdQuery(
+    selectedEmployeeId ?? '',
+    {
+      skip: !selectedEmployeeId,
+    }
+  );
+
+  const { draggingTaskId } = useTaskStore();
+  if (!selectedEmployeeId || !tasks) return null;
   return (
     <div className='mb-6'>
       <ul className='task-list space-y-2'>
@@ -13,9 +23,9 @@ export default function TaskList() {
           .map((task, index) => {
             return (
               <TaskItem
-                key={task.id}
+                key={task._id}
                 task={task}
-                isHidden={task.id === draggingTaskId}
+                isHidden={task._id === draggingTaskId}
                 index={index}
               />
             );

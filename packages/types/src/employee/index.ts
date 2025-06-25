@@ -1,12 +1,17 @@
-export type EmployeeRole = 'teacher' | 'admin' | 'manager';
+export enum EmployeeRole {
+  Teacher = 'teacher',
+  Admin = 'admin',
+  Manager = 'manager',
+}
 export interface Employee {
-  id: string;
+  _id: string;
   name: string;
   email: string;
   phone: string;
   address: string;
-  totalHours: number;
-  totalTasks: number;
+  salary: number;
+  department: string;
+  position: string;
   avatar: string;
-  role: EmployeeRole;
+  role: string;
 }

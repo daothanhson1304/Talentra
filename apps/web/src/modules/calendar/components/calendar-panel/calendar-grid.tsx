@@ -2,7 +2,7 @@ import ScheduledTask from '@/modules/task/components/scheduled-task';
 import { groupOverlappingTasks } from '@/modules/task/utils';
 import { cn } from '@ttrak/ui/lib/utils';
 
-import { getDayOfWeek, isSameDay } from '@/modules/calendar/helpers/date';
+import { getDayOfWeek } from '@/modules/calendar/helpers/date';
 import useTaskStore from '@/modules/task/hooks/use-task-store';
 import { currentWeekOffsetSelector } from '../../stores/selector/calendar-selector';
 import { useSelector } from 'react-redux';
@@ -53,17 +53,17 @@ const ScheduledTaskGrid = memo(({ dayOffset }: { dayOffset: number }) => {
   const { tasks } = useTaskStore();
   const currentWeekOffset = useSelector(currentWeekOffsetSelector);
   const day = getDayOfWeek(currentWeekOffset, dayOffset);
-  const dayTasks = tasks.filter(task => {
+  const dayTasks = tasks?.filter(task => {
     if (!task.day || !day) return false;
-    return isSameDay(task.day, day) && task.scheduled;
+    return true;
   });
-  const positionedTasks = groupOverlappingTasks(dayTasks);
+  const positionedTasks = groupOverlappingTasks(dayTasks ?? []);
   return (
     <div className='absolute top-0 left-0 right-0 bottom-0  rounded-lg '>
       {positionedTasks.map(task => (
         <ScheduledTask
-          key={task.id}
-          id={task.id}
+          key={task._id}
+          _id={task._id}
           title={task.title}
           startSlot={task.startSlot}
           slotCount={task.slotCount}

@@ -1,8 +1,12 @@
+import { FULL_DATE_TIME_FORMAT } from '@/constants/format-date';
+import { useGetEmployeeState } from '@/modules/employee/hooks/use-get-employee-state';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Importance } from '@ttrak/types/task';
 import { Button } from '@ttrak/ui/components/button';
 import { Calendar } from '@ttrak/ui/components/calendar';
 import { Form, FormField } from '@ttrak/ui/components/form';
 import { Input } from '@ttrak/ui/components/input';
+import LoadingButton from '@ttrak/ui/components/loading-button';
 import {
   Popover,
   PopoverContent,
@@ -16,21 +20,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@ttrak/ui/components/select';
-import { Textarea } from '@ttrak/ui/components/textarea';
-import { Calendar as CalendarIcon, Clock, Flag, Plus } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import useTaskStore from '../hooks/use-task-store';
-import { Importance } from '@ttrak/types/task';
 import { toast } from '@ttrak/ui/components/sonner';
-import dayjs from 'dayjs';
+import { Textarea } from '@ttrak/ui/components/textarea';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@ttrak/ui/components/tooltip';
-
+import dayjs from 'dayjs';
+import { Calendar as CalendarIcon, Clock, Flag, Plus } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { useCreateTaskMutation } from '../stores/api/task.api';
 const formSchema = z.object({
   taskName: z.string().min(1, {
     message: 'Task name is required',
@@ -52,15 +54,16 @@ const defaultValues = {
 export default function CreateTaskPopover() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const { createTask, tasks } = useTaskStore();
+  const { selectedEmployeeId } = useGetEmployeeState();
+  const [createTaskMutation, { isLoading }] = useCreateTaskMutation();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    createTask({
-      id: (tasks.length + 1).toString(),
+    if (!selectedEmployeeId) return;
+    createTaskMutation({
       title: values.taskName,
       description: values.notes ?? '',
       importance: values.importance ?? Importance.medium,
@@ -68,9 +71,10 @@ export default function CreateTaskPopover() {
       startSlot: 0,
       slotCount: 6,
       scheduled: false,
+      employeeId: selectedEmployeeId,
     });
     toast('Task has been created', {
-      description: dayjs(new Date()).format('dddd, MMMM DD, YYYY [at] h:mm A'),
+      description: dayjs(new Date()).format(FULL_DATE_TIME_FORMAT),
       action: {
         label: 'Undo',
         onClick: () => console.log('Undo'),
@@ -197,7 +201,7 @@ export default function CreateTaskPopover() {
                 </Popover>
               </div>
 
-              <div className='flex justify-between items-center justify-end '>
+              <div className='flex items-center justify-end '>
                 <div className='flex gap-5'>
                   <Button
                     variant='outline'
@@ -206,13 +210,14 @@ export default function CreateTaskPopover() {
                   >
                     Cancel
                   </Button>
-                  <Button
+                  <LoadingButton
                     className='bg-primary text-white px-4 py-1 rounded-md text-sm hover:bg-primary-active cursor-pointer'
                     variant='default'
                     type='submit'
+                    isLoading={isLoading}
                   >
                     Save
-                  </Button>
+                  </LoadingButton>
                 </div>
               </div>
             </form>

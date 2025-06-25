@@ -9,7 +9,7 @@ import useCalendar from '@/modules/calendar/hooks/use-calendar';
 
 export type ScheduledTaskProps = Pick<
   Task,
-  'id' | 'slotCount' | 'title' | 'startSlot'
+  '_id' | 'slotCount' | 'title' | 'startSlot'
 > & {
   style?: React.CSSProperties;
   isFirstInGroup?: boolean;
@@ -18,7 +18,7 @@ export type ScheduledTaskProps = Pick<
 
 export default function ScheduledTask({
   title,
-  id,
+  _id,
   startSlot,
   slotCount,
   className,
@@ -29,8 +29,8 @@ export default function ScheduledTask({
   const { snappedMinutes, pixelsPerMinute } = useCalendar();
 
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id,
-    data: getTaskById(id),
+    id: _id,
+    data: getTaskById(_id),
     disabled: isResizing,
   });
   const verticalSlotOffset = Math.floor((transform?.y ?? 0) / pixelsPerMinute);
@@ -77,7 +77,7 @@ export default function ScheduledTask({
 
       const offsetY = e.clientY - rect.top;
       const newSlotCount = Math.max(1, Math.round(offsetY / pixelsPerMinute));
-      updateTaskSlotCount(id, newSlotCount);
+      updateTaskSlotCount(_id, newSlotCount);
     };
 
     const handleMouseUp = () => {

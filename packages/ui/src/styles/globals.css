@@ -164,3 +164,8 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary); /* Màu khi hover */
 }
+ul,
+ol {
+  list-style: none !important;
+  padding-left: 0 !important; /* thường thêm dòng này nếu bạn muốn căn trái */
+}

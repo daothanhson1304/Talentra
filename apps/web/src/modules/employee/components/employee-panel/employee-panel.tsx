@@ -1,4 +1,3 @@
-import CreateTaskPopover from '@/modules/task/components/create-task-popover';
 import { ListFilter } from 'lucide-react';
 import SearchEmployee from './search-employee';
 import EmployeeList from './employee-list';
@@ -8,6 +7,7 @@ import {
   TooltipTrigger,
 } from '@ttrak/ui/components/tooltip';
 import { useState } from 'react';
+import CreateEmployeePopover from '../create-employee-popover';
 
 export default function EmployeePanel() {
   const [filter, setFilter] = useState('');
@@ -23,7 +23,7 @@ export default function EmployeePanel() {
               </TooltipTrigger>
               <TooltipContent>Filter</TooltipContent>
             </Tooltip>
-            <CreateTaskPopover />
+            <CreateEmployeePopover />
           </div>
         </div>
         <div className='mt-4'>

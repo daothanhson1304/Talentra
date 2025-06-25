@@ -1,8 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  draggingTaskIdSelector,
-  taskListSelector,
-} from '../stores/selector/task-selector.js';
+import { draggingTaskIdSelector } from '../stores/selector/task-selector.js';
 import {
   addTask,
   makeScheduledTask,
@@ -12,10 +9,10 @@ import {
 } from '../stores/slice/task-slice.js';
 import { Task } from '@ttrak/types/task';
 import { useMemo } from 'react';
-
+import { useGetTasksQuery } from '../stores/api/task.api';
 export default function useTaskStore() {
   const dispatch = useDispatch();
-  const tasks = useSelector(taskListSelector);
+  const { data: tasks } = useGetTasksQuery();
   const draggingTaskId = useSelector(draggingTaskIdSelector);
   const scheduleTask = (taskId: string, day: string, startSlot: number) => {
     dispatch(makeScheduledTask({ id: taskId, day, startSlot }));
@@ -28,7 +25,7 @@ export default function useTaskStore() {
     dispatch(updateScheduledTaskAction({ id: taskId, day, startSlot }));
   };
   const getTaskById = (taskId: string) => {
-    return tasks.find(task => task.id === taskId);
+    return tasks?.find(task => task._id === taskId);
   };
   const createDraggingTask = (taskId: string) => {
     dispatch(setDraggingTaskId(taskId));

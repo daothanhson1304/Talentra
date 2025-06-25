@@ -1,14 +1,12 @@
 import { useSelector } from 'react-redux';
-import {
-  selectEmployees,
-  selectSelectedEmployeeId,
-} from '../stores/selector/employee-selector';
+import { selectedEmployeeIdSelector } from '../stores/selector/employee-selector';
+import { useGetEmployeesQuery } from '../stores/api/employee.api';
 
 export const useGetEmployeeState = () => {
-  const selectedEmployeeId = useSelector(selectSelectedEmployeeId);
-  const employees = useSelector(selectEmployees);
+  const selectedEmployeeId = useSelector(selectedEmployeeIdSelector);
+  const { data: employees } = useGetEmployeesQuery();
   const getEmployeeById = (id: string) => {
-    return employees.find(employee => employee.id === id);
+    return employees?.find(employee => employee._id === id);
   };
   return { selectedEmployeeId, employees, getEmployeeById };
 };
