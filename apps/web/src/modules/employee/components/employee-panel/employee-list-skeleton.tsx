@@ -1,9 +1,9 @@
-import { Skeleton } from '@ttrak/ui/components/skeleton';
+import { Skeleton } from '@talentra/ui/components/skeleton';
 
 export default function EmployeeListSkeleton() {
   return (
     <div className='flex flex-col gap-2'>
-      {[...Array(12)].map((_, i) => (
+      {[...Array(10)].map((_, i) => (
         <div
           className='flex items-start gap-4 rounded-md p-2 hover:bg-layer3'
           key={i}

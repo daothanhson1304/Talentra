@@ -1,4 +1,4 @@
-import { Input } from '@ttrak/ui/components/input';
+import { Input } from '@talentra/ui/components/input';
 import { useDebounce } from '@uidotdev/usehooks';
 import { useEffect, useState } from 'react';
 
@@ -16,8 +16,8 @@ export default function SearchEmployee({ onSearch }: SearchEmployeeProps) {
     <div>
       <Input
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search employee"
+        onChange={e => setSearch(e.target.value)}
+        placeholder='Search employee'
       />
     </div>
   );

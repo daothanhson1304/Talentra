@@ -1,12 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@ttrak/ui/components/button';
-import { Form, FormField } from '@ttrak/ui/components/form';
-import { Input } from '@ttrak/ui/components/input';
+import { Button } from '@talentra/ui/components/button';
+import { Form, FormField } from '@talentra/ui/components/form';
+import { Input } from '@talentra/ui/components/input';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@ttrak/ui/components/popover';
+} from '@talentra/ui/components/popover';
 import {
   Select,
   SelectContent,
@@ -14,21 +14,21 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@ttrak/ui/components/select';
+} from '@talentra/ui/components/select';
 import { Plus, User, Mail, Phone, MapPin } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { EmployeeRole } from '@ttrak/types/employee';
-import { toast } from '@ttrak/ui/components/sonner';
+import { EmployeeRole } from '@talentra/types/employee';
+import { toast } from '@talentra/ui/components/sonner';
 import dayjs from 'dayjs';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@ttrak/ui/components/tooltip';
+} from '@talentra/ui/components/tooltip';
 import { useCreateEmployeeMutation } from '../stores/api/employee.api';
-import LoadingButton from '@ttrak/ui/components/loading-button';
+import LoadingButton from '@talentra/ui/components/loading-button';
 import { FULL_DATE_TIME_FORMAT } from '@/constants/format-date';
 
 const formSchema = z.object({

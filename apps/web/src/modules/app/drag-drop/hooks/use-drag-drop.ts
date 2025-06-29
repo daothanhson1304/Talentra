@@ -51,13 +51,10 @@ const useDragDrop = () => {
 
     if (!scheduled) {
       const adjustedY = delta.y + distanceFromTop - ACTION_TOOLBAR_HEIGHT;
-
       const startSlot = calculateStartSlot(adjustedY);
-
       const daySlot = calculateDayOffset(
         delta.x - itemWidth - PADDING_PANEL * 3 - TIME_LINE_WIDTH
       );
-
       const nextDay = calculateNextDay(daysOfWeek[0] ?? '', daySlot);
       updateScheduledTask(active.id as string, nextDay, startSlot);
     } else {

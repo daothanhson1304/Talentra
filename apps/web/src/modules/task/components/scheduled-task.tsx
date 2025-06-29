@@ -1,10 +1,10 @@
 import { useDraggable } from '@dnd-kit/core';
-import { cn } from '@ttrak/ui/lib/utils';
+import { cn } from '@talentra/ui/lib/utils';
 import { useEffect, useRef, useState } from 'react';
 import useTaskStore from '../hooks/use-task-store';
 
 import { MoveRight } from 'lucide-react';
-import { Task } from '@ttrak/types/task';
+import { Task } from '@talentra/types/task';
 import useCalendar from '@/modules/calendar/hooks/use-calendar';
 
 export type ScheduledTaskProps = Pick<

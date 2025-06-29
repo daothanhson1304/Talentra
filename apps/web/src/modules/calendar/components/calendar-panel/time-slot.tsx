@@ -1,4 +1,4 @@
-import { cn } from '@ttrak/ui/lib/utils';
+import { cn } from '@talentra/ui/lib/utils';
 import { snappedHeightSelector } from '../../stores/selector/calendar-selector';
 import { useSelector } from 'react-redux';
 

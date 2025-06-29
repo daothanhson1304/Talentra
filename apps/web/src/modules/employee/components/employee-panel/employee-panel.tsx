@@ -1,11 +1,6 @@
-import { ListFilter } from 'lucide-react';
 import SearchEmployee from './search-employee';
 import EmployeeList from './employee-list';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@ttrak/ui/components/tooltip';
+
 import { useState } from 'react';
 import CreateEmployeePopover from '../create-employee-popover';
 
@@ -17,12 +12,6 @@ export default function EmployeePanel() {
         <div className='flex justify-between items-center gap-8 pt-4'>
           <h2 className='text-xl font-medium'>Employee</h2>
           <div className='flex text-primary-foreground justify-end items-center gap-3 flex-1'>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <ListFilter size={18} className='cursor-pointer' />
-              </TooltipTrigger>
-              <TooltipContent>Filter</TooltipContent>
-            </Tooltip>
             <CreateEmployeePopover />
           </div>
         </div>

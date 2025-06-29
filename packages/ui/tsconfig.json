@@ -1,9 +1,9 @@
 {
-  "extends": "@ttrak/typescript-config/react-library.json",
+  "extends": "@talentra/typescript-config/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@ttrak/ui/*": ["./src/*"]
+      "@talentra/ui/*": ["./src/*"]
     }
   },
   "include": ["."],

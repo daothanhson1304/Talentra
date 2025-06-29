@@ -1,1 +1,1 @@
-export { default } from '@ttrak/ui/postcss.config';
+export { default } from '@talentra/ui/postcss.config';

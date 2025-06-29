@@ -1,28 +1,46 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { draggingTaskIdSelector } from '../stores/selector/task-selector.js';
 import {
-  addTask,
-  makeScheduledTask,
+  draggingTaskIdSelector,
+  editedTasksSelector,
+  isSavingBulkTaskSelector,
+  originalTasksSelector,
+  taskBySelectedEmployeeIdSelector,
+} from '../stores/selector/task-selector.js';
+import {
   updateScheduledTask as updateScheduledTaskAction,
   updateSlotCount,
   setDraggingTaskId,
+  syncWithOriginal as syncWithOriginalAction,
+  setIsSavingBulkTask as setIsSavingBulkTaskAction,
 } from '../stores/slice/task-slice.js';
-import { Task } from '@ttrak/types/task';
 import { useMemo } from 'react';
-import { useGetTasksQuery } from '../stores/api/task.api';
+import { useGetEmployeeState } from '@/modules/employee/hooks/use-get-employee-state.js';
+
 export default function useTaskStore() {
   const dispatch = useDispatch();
-  const { data: tasks } = useGetTasksQuery();
   const draggingTaskId = useSelector(draggingTaskIdSelector);
-  const scheduleTask = (taskId: string, day: string, startSlot: number) => {
-    dispatch(makeScheduledTask({ id: taskId, day, startSlot }));
-  };
+  const { selectedEmployeeId } = useGetEmployeeState();
+
+  const tasks = useSelector(taskBySelectedEmployeeIdSelector);
+
+  const editedTasks = useSelector(editedTasksSelector);
+  const originalTasks = useSelector(originalTasksSelector);
+  const isSavingBulkTask = useSelector(isSavingBulkTaskSelector);
+
   const updateScheduledTask = (
     taskId: string,
     day: string,
     startSlot: number
   ) => {
-    dispatch(updateScheduledTaskAction({ id: taskId, day, startSlot }));
+    if (!selectedEmployeeId) return;
+    dispatch(
+      updateScheduledTaskAction({
+        id: taskId,
+        day,
+        startSlot,
+        employeeId: selectedEmployeeId,
+      })
+    );
   };
   const getTaskById = (taskId: string) => {
     return tasks?.find(task => task._id === taskId);
@@ -34,10 +52,14 @@ export default function useTaskStore() {
     dispatch(setDraggingTaskId(null));
   };
   const updateTaskSlotCount = (taskId: string, slotCount: number) => {
-    dispatch(updateSlotCount({ id: taskId, slotCount }));
-  };
-  const createTask = (task: Task) => {
-    dispatch(addTask(task));
+    if (!selectedEmployeeId) return;
+    dispatch(
+      updateSlotCount({
+        id: taskId,
+        slotCount,
+        employeeId: selectedEmployeeId,
+      })
+    );
   };
 
   const draggingTask = useMemo(() => {
@@ -45,16 +67,27 @@ export default function useTaskStore() {
     return getTaskById(draggingTaskId);
   }, [draggingTaskId]);
 
+  const syncWithOriginal = () => {
+    dispatch(syncWithOriginalAction());
+  };
+
+  const setIsSavingBulkTask = (isSaving: boolean) => {
+    dispatch(setIsSavingBulkTaskAction(isSaving));
+  };
+
   return {
     tasks,
-    scheduleTask,
+    editedTasks,
+    originalTasks,
     getTaskById,
+    syncWithOriginal,
     createDraggingTask,
     clearDraggingTask,
     updateTaskSlotCount,
     updateScheduledTask,
-    createTask,
     draggingTaskId,
+    isSavingBulkTask,
+    setIsSavingBulkTask,
     draggingTask,
   };
 }

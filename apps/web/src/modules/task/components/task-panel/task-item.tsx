@@ -1,7 +1,7 @@
 import { TASK_ITEM_HEIGHT, TASK_TITLE_PANEL_HEIGHT } from '@/constants';
 import { useDraggable } from '@dnd-kit/core';
-import { Task } from '@ttrak/types/task';
-import { cn } from '@ttrak/ui/lib/utils';
+import { Task } from '@talentra/types/task';
+import { cn } from '@talentra/ui/lib/utils';
 import { GripVertical } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 

@@ -6,14 +6,10 @@ import { useGetTaskByEmployeeIdQuery } from '../../stores/api/task.api';
 export default function TaskList() {
   const { selectedEmployeeId } = useGetEmployeeState();
 
-  const { data: tasks } = useGetTaskByEmployeeIdQuery(
-    selectedEmployeeId ?? '',
-    {
-      skip: !selectedEmployeeId,
-    }
-  );
-
-  const { draggingTaskId } = useTaskStore();
+  const { tasks, draggingTaskId } = useTaskStore();
+  useGetTaskByEmployeeIdQuery(selectedEmployeeId ?? '', {
+    skip: !selectedEmployeeId,
+  });
   if (!selectedEmployeeId || !tasks) return null;
   return (
     <div className='mb-6'>

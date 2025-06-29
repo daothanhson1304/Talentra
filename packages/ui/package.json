@@ -1,5 +1,5 @@
 {
-  "name": "@ttrak/ui",
+  "name": "@talentra/ui",
   "version": "0.0.0",
   "type": "module",
   "private": true,
@@ -34,8 +34,8 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.8",
-    "@ttrak/eslint-config": "workspace:*",
-    "@ttrak/typescript-config": "workspace:*",
+    "@talentra/eslint-config": "workspace:*",
+    "@talentra/typescript-config": "workspace:*",
     "@turbo/gen": "^2.4.2",
     "@types/node": "^20",
     "@types/react": "^19",

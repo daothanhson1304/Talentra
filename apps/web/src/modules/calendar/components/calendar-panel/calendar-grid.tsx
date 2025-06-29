@@ -1,8 +1,8 @@
 import ScheduledTask from '@/modules/task/components/scheduled-task';
 import { groupOverlappingTasks } from '@/modules/task/utils';
-import { cn } from '@ttrak/ui/lib/utils';
+import { cn } from '@talentra/ui/lib/utils';
 
-import { getDayOfWeek } from '@/modules/calendar/helpers/date';
+import { getDayOfWeek, isSameDay } from '@/modules/calendar/helpers/date';
 import useTaskStore from '@/modules/task/hooks/use-task-store';
 import { currentWeekOffsetSelector } from '../../stores/selector/calendar-selector';
 import { useSelector } from 'react-redux';
@@ -11,6 +11,9 @@ import DailyTimeline from './daily-timeline';
 import { useDroppable } from '@dnd-kit/core';
 import { HOURS_IN_DAY_COLUMN_WIDTH } from '@/constants';
 import { memo } from 'react';
+import useSetEmployeeState from '@/modules/employee/hooks/use-set-employee-state';
+import { useGetEmployeeState } from '@/modules/employee/hooks/use-get-employee-state';
+import { useGetTaskByEmployeeIdQuery } from '@/modules/task/stores/api/task.api';
 
 const CalendarGrid = () => {
   const { setNodeRef } = useDroppable({
@@ -50,12 +53,17 @@ const CalendarGrid = () => {
 export default memo(CalendarGrid);
 
 const ScheduledTaskGrid = memo(({ dayOffset }: { dayOffset: number }) => {
+  const { selectedEmployeeId } = useGetEmployeeState();
   const { tasks } = useTaskStore();
+
   const currentWeekOffset = useSelector(currentWeekOffsetSelector);
+
+  if (!selectedEmployeeId) return null;
+
   const day = getDayOfWeek(currentWeekOffset, dayOffset);
   const dayTasks = tasks?.filter(task => {
     if (!task.day || !day) return false;
-    return true;
+    return isSameDay(task.day, day) && task.scheduled;
   });
   const positionedTasks = groupOverlappingTasks(dayTasks ?? []);
   return (

@@ -1,4 +1,4 @@
-import { ArrowLeft, ListFilter } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import TaskList from './task-list';
 import { useGetEmployeeState } from '@/modules/employee/hooks/use-get-employee-state';
 import { useMemo } from 'react';
@@ -11,7 +11,8 @@ import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
-} from '@ttrak/ui/components/tooltip';
+} from '@talentra/ui/components/tooltip';
+import useSetEmployeeState from '@/modules/employee/hooks/use-set-employee-state';
 
 export default function TaskPanel() {
   return (
@@ -24,12 +25,6 @@ export default function TaskPanel() {
       >
         <TaskTitle />
         <div className='flex text-primary-foreground justify-end items-center gap-3 flex-1'>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <ListFilter size={18} className='cursor-pointer' />
-            </TooltipTrigger>
-            <TooltipContent>Filter</TooltipContent>
-          </Tooltip>
           <CreateTaskPopover />
         </div>
       </div>
@@ -40,22 +35,28 @@ export default function TaskPanel() {
 
 const TaskTitle = () => {
   const { selectedEmployeeId, getEmployeeById } = useGetEmployeeState();
+  const { setSelectedEmployeeId } = useSetEmployeeState();
+
   const { setActiveTab } = useSetSidebarState();
   const employee = useMemo(() => {
     return getEmployeeById(selectedEmployeeId ?? '');
   }, [selectedEmployeeId]);
+  const handleBack = () => {
+    setActiveTab(SidebarTab.EMPLOYEE);
+    setSelectedEmployeeId(null);
+  };
   return (
     <h2 className='flex items-center gap-2 whitespace-nowrap text-xl font-medium'>
       <Tooltip>
         <TooltipTrigger asChild>
           <ArrowLeft
             className='bg-layer2 rounded-sm cursor-pointer p-1'
-            onClick={() => setActiveTab(SidebarTab.EMPLOYEE)}
+            onClick={handleBack}
           />
         </TooltipTrigger>
         <TooltipContent>Employees</TooltipContent>
       </Tooltip>
-      Assigned Tasks - {employee?.name}
+      {employee?.name}
     </h2>
   );
 };

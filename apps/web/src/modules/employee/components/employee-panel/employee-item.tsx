@@ -1,9 +1,9 @@
-import { Employee } from '@ttrak/types/employee';
+import { Employee } from '@talentra/types/employee';
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from '@ttrak/ui/components/avatar';
+} from '@talentra/ui/components/avatar';
 interface EmployeeItemProps {
   employee: Employee;
   onSelect: (id: string) => void;

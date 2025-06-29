@@ -1,19 +1,13 @@
-import {
-  ChevronLeft,
-  ChevronRight,
-  Circle,
-  RefreshCw,
-  Search,
-  Bell,
-} from 'lucide-react';
+import { ChevronLeft, ChevronRight, Circle, Search, Bell } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@ttrak/ui/components/tooltip';
+} from '@talentra/ui/components/tooltip';
 import { setCurrentWeekOffset } from '../../stores/slice/calendar-slice';
 import { useDispatch } from 'react-redux';
 import useCalendar from '../../hooks/use-calendar';
+import RefreshIcon from './refresh-icon';
 
 export default function ActionToolbar() {
   const dispatch = useDispatch();
@@ -53,15 +47,8 @@ export default function ActionToolbar() {
       },
     },
     {
-      icon: (
-        <RefreshCw
-          size={16}
-          className='cursor-pointer text-primary-foreground'
-        />
-      ),
-      label: 'Refresh',
+      icon: <RefreshIcon key='refresh-icon' />,
     },
-
     {
       icon: (
         <Search size={20} className='cursor-pointer text-primary-foreground' />
@@ -76,15 +63,20 @@ export default function ActionToolbar() {
     },
   ];
   return (
-    <div className='flex items-center gap-6 pt-1 pr-8 pt-2'>
-      {actions.map(action => (
-        <Tooltip key={action.label}>
-          <TooltipTrigger asChild>
-            <button onClick={action.onClick}>{action.icon}</button>
-          </TooltipTrigger>
-          <TooltipContent>{action.label}</TooltipContent>
-        </Tooltip>
-      ))}
+    <div className='flex items-center gap-6 pr-8 pt-2'>
+      {actions.map(action => {
+        if (action.label) {
+          return (
+            <Tooltip key={action.label}>
+              <TooltipTrigger asChild>
+                <button onClick={action.onClick}>{action.icon}</button>
+              </TooltipTrigger>
+              <TooltipContent>{action.label}</TooltipContent>
+            </Tooltip>
+          );
+        }
+        return action.icon;
+      })}
     </div>
   );
 }

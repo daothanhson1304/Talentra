@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 import App from '@/App';
 import { store } from '@/stores';
 
-import '@ttrak/ui/globals.css';
+import '@talentra/ui/globals.css';
 import '@/modules/task/styles/index.css';
-import { Toaster } from '@ttrak/ui/components/sonner';
+import { Toaster } from '@talentra/ui/components/sonner';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

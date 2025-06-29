@@ -1,4 +1,4 @@
-import { Task } from '@ttrak/types/task';
+import { Task } from '@talentra/types/task';
 
 type PositionedTask = Task & {
   left: number;

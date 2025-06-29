@@ -1,6 +1,6 @@
 import { baseQueryWithReauth } from '@/api/base-query';
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { Employee } from '@ttrak/types/employee';
+import { Employee } from '@talentra/types/employee';
 
 type CreateEmployeeRequest = Omit<Employee, '_id'>;
 

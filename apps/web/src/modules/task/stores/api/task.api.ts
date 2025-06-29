@@ -1,6 +1,7 @@
 import { baseQueryWithReauth } from '@/api/base-query';
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { Task } from '@ttrak/types/task';
+import { Task } from '@talentra/types/task';
+import { setTasks } from '../slice/task-slice';
 
 type CreateTaskRequest = Omit<Task, '_id'> & { employeeId: string };
 
@@ -9,10 +10,6 @@ export const taskApi = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['Task'],
   endpoints: builder => ({
-    getTasks: builder.query<Task[], void>({
-      query: () => '/task',
-      providesTags: ['Task'],
-    }),
     createTask: builder.mutation<Task, CreateTaskRequest>({
       query: task => ({
         url: '/task',
@@ -24,12 +21,23 @@ export const taskApi = createApi({
     getTaskByEmployeeId: builder.query<Task[], string>({
       query: employeeId => `/task/employee/${employeeId}`,
       providesTags: ['Task'],
+      onQueryStarted: async (employeeId, { queryFulfilled, dispatch }) => {
+        const { data } = await queryFulfilled;
+        dispatch(setTasks({ [employeeId]: data }));
+      },
+    }),
+    updateTasks: builder.mutation<Task[], Task[]>({
+      query: tasks => ({
+        url: '/task',
+        method: 'PUT',
+        body: tasks,
+      }),
     }),
   }),
 });
 
 export const {
-  useGetTasksQuery,
   useCreateTaskMutation,
   useGetTaskByEmployeeIdQuery,
+  useUpdateTasksMutation,
 } = taskApi;

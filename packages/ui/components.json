@@ -11,10 +11,10 @@
   },
   "iconLibrary": "lucide",
   "aliases": {
-    "components": "@ttrak/ui/components",
-    "utils": "@ttrak/ui/lib/utils",
-    "hooks": "@ttrak/ui/hooks",
-    "lib": "@ttrak/ui/lib",
-    "ui": "@ttrak/ui/components"
+    "components": "@talentra/ui/components",
+    "utils": "@talentra/ui/lib/utils",
+    "hooks": "@talentra/ui/hooks",
+    "lib": "@talentra/ui/lib",
+    "ui": "@talentra/ui/components"
   }
 }

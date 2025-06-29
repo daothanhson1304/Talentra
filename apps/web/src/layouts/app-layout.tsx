@@ -6,7 +6,7 @@ import {
   ResizablePanelGroup,
   ResizablePanel,
   ResizableHandle,
-} from '@ttrak/ui/components/resizable';
+} from '@talentra/ui/components/resizable';
 
 import AppSidebar from './app-sidebar';
 import MainSidebar from './main-sidebar';

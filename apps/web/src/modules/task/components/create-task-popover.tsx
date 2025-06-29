@@ -1,17 +1,17 @@
 import { FULL_DATE_TIME_FORMAT } from '@/constants/format-date';
 import { useGetEmployeeState } from '@/modules/employee/hooks/use-get-employee-state';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Importance } from '@ttrak/types/task';
-import { Button } from '@ttrak/ui/components/button';
-import { Calendar } from '@ttrak/ui/components/calendar';
-import { Form, FormField } from '@ttrak/ui/components/form';
-import { Input } from '@ttrak/ui/components/input';
-import LoadingButton from '@ttrak/ui/components/loading-button';
+import { Importance } from '@talentra/types/task';
+import { Button } from '@talentra/ui/components/button';
+import { Calendar } from '@talentra/ui/components/calendar';
+import { Form, FormField } from '@talentra/ui/components/form';
+import { Input } from '@talentra/ui/components/input';
+import LoadingButton from '@talentra/ui/components/loading-button';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@ttrak/ui/components/popover';
+} from '@talentra/ui/components/popover';
 import {
   Select,
   SelectContent,
@@ -19,14 +19,14 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@ttrak/ui/components/select';
-import { toast } from '@ttrak/ui/components/sonner';
-import { Textarea } from '@ttrak/ui/components/textarea';
+} from '@talentra/ui/components/select';
+import { toast } from '@talentra/ui/components/sonner';
+import { Textarea } from '@talentra/ui/components/textarea';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@ttrak/ui/components/tooltip';
+} from '@talentra/ui/components/tooltip';
 import dayjs from 'dayjs';
 import { Calendar as CalendarIcon, Clock, Flag, Plus } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
@@ -61,18 +61,18 @@ export default function CreateTaskPopover() {
     defaultValues,
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     if (!selectedEmployeeId) return;
-    createTaskMutation({
+    await createTaskMutation({
       title: values.taskName,
       description: values.notes ?? '',
       importance: values.importance ?? Importance.medium,
       day: new Date().toISOString(),
       startSlot: 0,
-      slotCount: 6,
+      slotCount: 0,
       scheduled: false,
       employeeId: selectedEmployeeId,
-    });
+    }).unwrap();
     toast('Task has been created', {
       description: dayjs(new Date()).format(FULL_DATE_TIME_FORMAT),
       action: {

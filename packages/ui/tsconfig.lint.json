@@ -1,5 +1,5 @@
 {
-  "extends": "@ttrak/typescript-config/react-library.json",
+  "extends": "@talentra/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist"
   },
