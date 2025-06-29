@@ -26,7 +26,9 @@ const AutoSaveTasks = () => {
         .then(() => {
           syncWithOriginal();
         })
-        .catch((err: any) => {});
+        .catch((err: any) => {
+          console.error(err);
+        });
 
       timeoutRef.current = null;
     }, AUTO_SAVE_DELAY_MS);

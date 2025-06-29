@@ -11,9 +11,7 @@ import DailyTimeline from './daily-timeline';
 import { useDroppable } from '@dnd-kit/core';
 import { HOURS_IN_DAY_COLUMN_WIDTH } from '@/constants';
 import { memo } from 'react';
-import useSetEmployeeState from '@/modules/employee/hooks/use-set-employee-state';
 import { useGetEmployeeState } from '@/modules/employee/hooks/use-get-employee-state';
-import { useGetTaskByEmployeeIdQuery } from '@/modules/task/stores/api/task.api';
 
 const CalendarGrid = () => {
   const { setNodeRef } = useDroppable({
