@@ -21,7 +21,7 @@ export default function useTaskStore() {
   const draggingTaskId = useSelector(draggingTaskIdSelector);
   const { selectedEmployeeId } = useGetEmployeeState();
 
-  const tasks = useSelector(taskBySelectedEmployeeIdSelector);
+  const tasks = [];
 
   const editedTasks = useSelector(editedTasksSelector);
   const originalTasks = useSelector(originalTasksSelector);

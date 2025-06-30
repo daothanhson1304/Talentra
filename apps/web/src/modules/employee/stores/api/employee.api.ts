@@ -21,7 +21,21 @@ export const employeeApi = createApi({
       }),
       invalidatesTags: ['Employee'],
     }),
+    getPaginatedEmployees: builder.query<
+      { employees: Employee[]; total: number },
+      { limit: number; page: number; search: string }
+    >({
+      query: ({ limit, page, search }) => ({
+        url: `/employee/paginated?limit=${limit}&page=${page}&search=${search}`,
+        method: 'GET',
+      }),
+      providesTags: ['Employee'],
+    }),
   }),
 });
 
-export const { useGetEmployeesQuery, useCreateEmployeeMutation } = employeeApi;
+export const {
+  useGetEmployeesQuery,
+  useCreateEmployeeMutation,
+  useGetPaginatedEmployeesQuery,
+} = employeeApi;
