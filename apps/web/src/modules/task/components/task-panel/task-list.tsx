@@ -11,6 +11,7 @@ export default function TaskList() {
     skip: !selectedEmployeeId,
   });
   if (!selectedEmployeeId || !tasks) return null;
+  console.log(tasks);
   return (
     <div className='mb-6'>
       <ul className='task-list space-y-2'>

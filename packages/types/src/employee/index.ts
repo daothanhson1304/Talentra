@@ -15,3 +15,22 @@ export interface Employee {
   avatar: string;
   role: string;
 }
+
+export interface EmployeePagination {
+  currentPage: number;
+  totalPages: number;
+  totalCount: number;
+  limit: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+  nextPage: number | null;
+  prevPage: number;
+}
+
+export interface EmployeeFilter {
+  search: string;
+  department: string;
+  position: string;
+  sortBy: string;
+  sortOrder: string;
+}
