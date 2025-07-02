@@ -7,6 +7,7 @@ export interface Task {
   scheduled: boolean;
   description: string;
   importance: Importance;
+  status: string;
 }
 
 export enum Importance {

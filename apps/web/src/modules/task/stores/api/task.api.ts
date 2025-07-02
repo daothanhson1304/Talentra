@@ -33,6 +33,24 @@ export const taskApi = createApi({
         body: tasks,
       }),
     }),
+    getTaskByEmployeeIdAndMonth: builder.query<
+      {
+        tasks: Task[];
+        statistics: {
+          totalTasks: number;
+          completedTasks: number;
+          pendingTasks: number;
+          inProgressTasks: number;
+          cancelledTasks: number;
+          completionRate: string;
+        };
+      },
+      { employeeId: string; month: string; year: string }
+    >({
+      query: ({ employeeId, month, year }) =>
+        `/task/employee/${employeeId}/monthly?month=${month}&year=${year}`,
+      providesTags: ['Task'],
+    }),
   }),
 });
 
@@ -40,4 +58,5 @@ export const {
   useCreateTaskMutation,
   useGetTaskByEmployeeIdQuery,
   useUpdateTasksMutation,
+  useGetTaskByEmployeeIdAndMonthQuery,
 } = taskApi;

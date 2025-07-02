@@ -39,6 +39,10 @@ export const employeeApi = createApi({
       }),
       providesTags: ['Employee'],
     }),
+    getEmployeeById: builder.query<Employee, string>({
+      query: id => `/employee/${id}`,
+      providesTags: ['Employee'],
+    }),
   }),
 });
 
@@ -46,4 +50,5 @@ export const {
   useGetEmployeesQuery,
   useCreateEmployeeMutation,
   useGetPaginatedEmployeesQuery,
+  useGetEmployeeByIdQuery,
 } = employeeApi;

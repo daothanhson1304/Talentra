@@ -13,7 +13,7 @@ import {
   TooltipContent,
 } from '@talentra/ui/components/tooltip';
 import useSetEmployeeState from '@/modules/employee/hooks/use-set-employee-state';
-
+import { useGetEmployeesQuery } from '@/modules/employee/stores/api/employee.api';
 export default function TaskPanel() {
   return (
     <section className='bg-layer0 p-4 h-full w-full pt-0 max-w-full overflow-x-hidden overflow-y-auto'>
@@ -34,13 +34,14 @@ export default function TaskPanel() {
 }
 
 const TaskTitle = () => {
-  const { selectedEmployeeId, getEmployeeById } = useGetEmployeeState();
+  const { selectedEmployeeId } = useGetEmployeeState();
   const { setSelectedEmployeeId } = useSetEmployeeState();
+  const { data: employees } = useGetEmployeesQuery();
 
   const { setActiveTab } = useSetSidebarState();
   const employee = useMemo(() => {
-    return getEmployeeById(selectedEmployeeId ?? '');
-  }, [selectedEmployeeId]);
+    return employees?.find(employee => employee._id === selectedEmployeeId);
+  }, [selectedEmployeeId, employees]);
   const handleBack = () => {
     setActiveTab(SidebarTab.EMPLOYEE);
     setSelectedEmployeeId(null);

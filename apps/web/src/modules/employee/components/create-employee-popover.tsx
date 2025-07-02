@@ -73,7 +73,9 @@ export default function CreateEmployeePopover() {
         department: 'IT',
         position: 'Developer',
         avatar: `https://robohash.org/${Math.random().toString(36).substring(2)}.png`,
-        role: values.role,
+        dateOfBirth: new Date().toISOString(),
+        country: 'United States',
+        city: 'New York',
       }).unwrap();
 
       toast('Employee has been created', {

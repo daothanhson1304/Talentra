@@ -47,6 +47,7 @@ import {
   SelectValue,
 } from '@talentra/ui/components/select';
 import { Label } from '@talentra/ui/components/label';
+import dayjs from 'dayjs';
 
 export function EmployeeTable() {
   const [pagination, setPagination] = React.useState({
@@ -248,12 +249,22 @@ const columns: ColumnDef<any>[] = [
     ),
   },
   {
+    accessorKey: 'dateOfBirth',
+    header: 'Date of Birth',
+    cell: ({ row }) => (
+      <p className='text-muted-foreground'>
+        {dayjs(row.original.dateOfBirth).format('DD MMM YYYY')}
+      </p>
+    ),
+  },
+  {
     accessorKey: 'phone',
     header: 'Phone',
     cell: ({ row }) => (
       <p className='text-muted-foreground'>{row.original.phone}</p>
     ),
   },
+
   {
     accessorKey: 'position',
     header: 'Position',
@@ -262,14 +273,14 @@ const columns: ColumnDef<any>[] = [
     ),
   },
   {
-    accessorKey: 'role',
-    header: 'Role',
+    accessorKey: 'country',
+    header: 'Country',
     cell: ({ row }) => {
-      const isAssigned = row.original.role !== 'Assign role';
+      const isAssigned = row.original.country !== 'Assign country';
       return isAssigned ? (
-        row.original.role
+        row.original.country
       ) : (
-        <span className='text-muted-foreground'>Assign role</span>
+        <span className='text-muted-foreground'>Assign country</span>
       );
     },
   },

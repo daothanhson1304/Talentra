@@ -13,7 +13,9 @@ export interface Employee {
   department: string;
   position: string;
   avatar: string;
-  role: string;
+  dateOfBirth: string;
+  country: string;
+  city: string;
 }
 
 export interface EmployeePagination {

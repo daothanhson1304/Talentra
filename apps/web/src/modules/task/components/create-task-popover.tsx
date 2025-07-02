@@ -72,6 +72,7 @@ export default function CreateTaskPopover() {
       slotCount: 0,
       scheduled: false,
       employeeId: selectedEmployeeId,
+      status: 'pending',
     }).unwrap();
     toast('Task has been created', {
       description: dayjs(new Date()).format(FULL_DATE_TIME_FORMAT),
