@@ -29,9 +29,6 @@ export default function EmployeeItem({
           <h3 className='text-sm font-medium'>{employee.name}</h3>
           <p className='text-sm text-muted-foreground'>{employee.email}</p>
         </div>
-        <div className='flex items-center gap-2'>
-          <p className='text-sm text-primary'>8 Hrs</p>
-        </div>
       </div>
     </div>
   );

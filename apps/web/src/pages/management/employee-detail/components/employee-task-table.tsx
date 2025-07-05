@@ -108,34 +108,31 @@ export default function EmployeeTaskTable({ tasks }: Readonly<Props>) {
     },
   ];
 
+  const hasData = table.getRowModel().rows.length > 0;
+
   return (
     <>
-      <div className='w-full rounded-lg border border-border overflow-hidden'>
-        {/* Table header */}
-        <Table>
-          <TableHeader className='bg-muted sticky top-0 z-10'>
-            {table.getHeaderGroups().map(headerGroup => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map(header => (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
-          </TableHeader>
-        </Table>
-
-        {/* Scrollable table body */}
-        <div className='max-h-[420px] overflow-y-auto'>
+      <div className='w-full rounded-lg border border-border overflow-hidden mb-4'>
+        <div className=' overflow-y-auto'>
           <Table>
+            <TableHeader className='bg-layer2 sticky top-0 z-10'>
+              {table.getHeaderGroups().map(headerGroup => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map(header => (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  ))}
+                </TableRow>
+              ))}
+            </TableHeader>
             <TableBody>
-              {table.getRowModel().rows.length ? (
+              {hasData ? (
                 table.getRowModel().rows.map(row => (
                   <TableRow key={row.id}>
                     {row.getVisibleCells().map(cell => (
@@ -163,58 +160,60 @@ export default function EmployeeTaskTable({ tasks }: Readonly<Props>) {
         </div>
       </div>
 
-      <div className='flex items-center justify-between px-4 mt-4'>
-        <div className='text-sm text-muted-foreground'>
-          Page {currentPage} of {totalPages}
-        </div>
-        <div className='flex items-center gap-2'>
-          <div className='hidden items-center gap-2 lg:flex'>
-            <Label
-              htmlFor='rows-per-page'
-              className='text-sm font-medium text-muted-foreground'
-            >
-              Rows per page
-            </Label>
-            <Select
-              value={pagination.pageSize.toString()}
-              onValueChange={value =>
-                setPagination({ ...pagination, pageSize: Number(value) })
-              }
-            >
-              <SelectTrigger size='sm' className='w-20' id='rows-per-page'>
-                <SelectValue placeholder={pagination.pageSize.toString()} />
-              </SelectTrigger>
-              <SelectContent side='top'>
-                {[5, 10, 15, 20].map(pageSize => (
-                  <SelectItem key={pageSize} value={`${pageSize}`}>
-                    {pageSize}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+      {hasData && (
+        <div className='flex items-center justify-between px-4 mt-4'>
+          <div className='text-sm text-muted-foreground'>
+            Page {currentPage} of {totalPages}
           </div>
-          <TooltipProvider>
-            {paginationButtons.map((button, index) => (
-              <Tooltip key={index}>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant='outline'
-                    size='sm'
-                    className='h-8 w-8 p-0'
-                    onClick={button.onClick}
-                    disabled={button.disabled}
-                  >
-                    <button.icon className='h-4 w-4' />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{button.label}</p>
-                </TooltipContent>
-              </Tooltip>
-            ))}
-          </TooltipProvider>
+          <div className='flex items-center gap-2'>
+            <div className='hidden items-center gap-2 lg:flex'>
+              <Label
+                htmlFor='rows-per-page'
+                className='text-sm font-medium text-muted-foreground'
+              >
+                Rows per page
+              </Label>
+              <Select
+                value={pagination.pageSize.toString()}
+                onValueChange={value =>
+                  setPagination({ ...pagination, pageSize: Number(value) })
+                }
+              >
+                <SelectTrigger size='sm' className='w-20' id='rows-per-page'>
+                  <SelectValue placeholder={pagination.pageSize.toString()} />
+                </SelectTrigger>
+                <SelectContent side='top'>
+                  {[5, 10, 15, 20].map(pageSize => (
+                    <SelectItem key={pageSize} value={`${pageSize}`}>
+                      {pageSize}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <TooltipProvider>
+              {paginationButtons.map((button, index) => (
+                <Tooltip key={index}>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant='outline'
+                      size='sm'
+                      className='h-8 w-8 p-0'
+                      onClick={button.onClick}
+                      disabled={button.disabled}
+                    >
+                      <button.icon className='h-4 w-4' />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{button.label}</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </TooltipProvider>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
@@ -228,11 +227,13 @@ const taskColumns: ColumnDef<Task>[] = [
   {
     accessorKey: 'title',
     header: 'Title',
+    cell: ({ row }) => (
+      <div className='max-w-[302px] truncate' title={row.original.title}>
+        {row.original.title}
+      </div>
+    ),
   },
-  {
-    accessorKey: 'description',
-    header: 'Description',
-  },
+
   {
     accessorKey: 'status',
     header: 'Status',
@@ -279,22 +280,8 @@ const taskColumns: ColumnDef<Task>[] = [
     },
   },
   {
-    accessorKey: 'from',
-    header: 'From',
-    cell: ({ row }) => {
-      const day = row.original.day;
-      const startSlot = row.original.startSlot ?? 0;
-
-      if (!day) return <span>-</span>;
-
-      const startTime = dayjs(day).add(startSlot * 5, 'minute');
-      return <span>{startTime.format('hh:mm A')}</span>; // 12-hour format with AM/PM
-    },
-  },
-
-  {
-    accessorKey: 'to',
-    header: 'To',
+    id: 'timeRange',
+    header: 'Time Range',
     cell: ({ row }) => {
       const day = row.original.day;
       const startSlot = row.original.startSlot ?? 0;
@@ -302,14 +289,20 @@ const taskColumns: ColumnDef<Task>[] = [
 
       if (!day) return <span>-</span>;
 
-      const endTime = dayjs(day).add((startSlot + slotCount) * 5, 'minute');
-      return <span>{endTime.format('hh:mm A')}</span>; // 12-hour format with AM/PM
+      const from = dayjs(day).add(startSlot * 5, 'minute');
+      const to = dayjs(day).add((startSlot + slotCount) * 5, 'minute');
+
+      return (
+        <span>
+          {from.format('hh:mm A')} - {to.format('hh:mm A')}
+        </span>
+      );
     },
   },
 
   {
     accessorKey: 'totalHours',
-    header: 'Total Hours',
+    header: 'Duration',
     cell: ({ row }) => {
       const slotCount = row.original.slotCount ?? 0;
       const totalMinutes = slotCount * 5;

@@ -16,6 +16,7 @@ export interface Employee {
   dateOfBirth: string;
   country: string;
   city: string;
+  createdAt: string;
 }
 
 export interface EmployeePagination {

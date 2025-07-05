@@ -6,7 +6,7 @@ import {
   EmployeePagination,
 } from '@talentra/types/employee';
 
-type CreateEmployeeRequest = Omit<Employee, '_id'>;
+type CreateEmployeeRequest = Omit<Employee, '_id' | 'createdAt'>;
 
 export const employeeApi = createApi({
   reducerPath: 'employeeApi',

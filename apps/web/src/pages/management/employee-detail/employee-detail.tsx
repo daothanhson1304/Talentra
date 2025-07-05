@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import EmployeeProfile from './components/employee-profile';
-import TasksTable from './components/task-table';
+import TasksTable from './components/employee-task-table';
 import { EmployeeHeader } from './components/employee-header';
 import { useGetTaskByEmployeeIdAndMonthQuery } from '@/modules/task/stores/api/task.api';
 import { useParams } from 'react-router';
 import { useGetEmployeeByIdQuery } from '@/modules/employee/stores/api/employee.api';
 import EmployeeProfileSkeleton from './components/employee-profile-skeleton';
+import dayjs from 'dayjs';
+import { MONTH_YEAR_FORMAT } from '@/constants/format-date';
 
 export default function EmployeeDetail() {
   const [selectedMonth, setSelectedMonth] = useState('2025-07');
   const employeeId = useParams().id;
-  console.log(employeeId);
 
   const { data } = useGetTaskByEmployeeIdAndMonthQuery({
     employeeId: employeeId ?? '',
@@ -29,35 +30,42 @@ export default function EmployeeDetail() {
 
   return (
     <div className='flex lg:grid-cols-3 gap-6 p-6 bg-layer1 min-h-screen w-full h-full'>
-      {isFetching ? (
-        <div className='flex-shrink-0 w-full max-w-sm min-w-[280px] h-full'>
+      <div className='flex-shrink-0 w-full max-w-sm min-w-[280px] h-full'>
+        {isFetching ? (
           <EmployeeProfileSkeleton />
-        </div>
-      ) : (
-        <div className='flex-shrink-0 w-full max-w-sm min-w-[280px] h-full'>
-          {employee && <EmployeeProfile employeeProfile={employee} />}
-        </div>
-      )}
+        ) : (
+          <>{employee && <EmployeeProfile employeeProfile={employee} />}</>
+        )}
+      </div>
       <div className='space-y-6 flex-1'>
         <EmployeeHeader
           selectedMonth={selectedMonth}
           onChangeMonth={setSelectedMonth}
+          salary={employee?.salary ?? 0}
+          joinedDate={employee?.createdAt ?? ''}
+          department={employee?.department ?? ''}
         />
-        <HeaderStats
-          totalHours={totalHours}
-          totalSalary={employee?.salary ?? 0}
-          statistics={
-            data?.statistics ?? {
-              totalTasks: 0,
-              completedTasks: 0,
-              inProgressTasks: 0,
-              cancelledTasks: 0,
-              completionRate: '',
-              pendingTasks: 0,
+        <div
+          className='overflow-y-auto space-y-6 pr-2 scrollbar-hide'
+          style={{ height: 'calc(100vh - 100px)' }}
+        >
+          <HeaderStats
+            totalHours={totalHours}
+            statistics={
+              data?.statistics ?? {
+                totalTasks: 0,
+                completedTasks: 0,
+                inProgressTasks: 0,
+                cancelledTasks: 0,
+                completionRate: '',
+                pendingTasks: 0,
+              }
             }
-          }
-        />
-        <TasksTable tasks={data?.tasks ?? []} />
+            month={selectedMonth}
+          />
+
+          <TasksTable tasks={data?.tasks ?? []} />
+        </div>
       </div>
     </div>
   );
@@ -66,10 +74,9 @@ export default function EmployeeDetail() {
 export function HeaderStats({
   totalHours,
   statistics,
-  totalSalary,
+  month,
 }: Readonly<{
   totalHours: string;
-  totalSalary: number;
   statistics: {
     totalTasks: number;
     completedTasks: number;
@@ -78,16 +85,15 @@ export function HeaderStats({
     cancelledTasks: number;
     completionRate: string;
   };
+  month: string;
 }>) {
   return (
-    <div className='rounded-xl bg-layer2 p-6 shadow-md space-y-6'>
-      <div className='text-2xl font-semibold'>
-        {totalHours} hrs / ${Math.round(totalSalary)}
-      </div>
-
+    <div className='rounded-xl bg-layer2 p-4 shadow-md space-y-6'>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-medium'>
-        <div>
-          <p className='text-yellow-600'>Work day</p>
+        <div className='space-y-2'>
+          <p className='text-yellow-600'>
+            Total hours of {dayjs(month).format(MONTH_YEAR_FORMAT)}
+          </p>
           <div
             className='bg-yellow-200 h-2 rounded mt-1 w-full'
             style={{ width: '80%' }}
@@ -95,8 +101,10 @@ export function HeaderStats({
           <p className='mt-1'>{totalHours} hrs</p>
         </div>
 
-        <div>
-          <p className='text-blue-600'>Total Tasks This Month</p>
+        <div className='space-y-2'>
+          <p className='text-blue-600'>
+            Total tasks of {dayjs(month).format(MONTH_YEAR_FORMAT)}
+          </p>
           <div
             className='bg-blue-200 h-2 rounded mt-1 w-full'
             style={{ width: '100%' }}

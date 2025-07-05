@@ -4,6 +4,11 @@ import { Button } from '@talentra/ui/components/button';
 import { memo } from 'react';
 import dayjs from 'dayjs';
 import { Employee } from '@talentra/types/employee';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@talentra/ui/components/avatar';
 
 const EmployeeProfile = ({
   employeeProfile,
@@ -12,11 +17,12 @@ const EmployeeProfile = ({
     <Card className='flex-1 max-w-sm mx-auto rounded-2xl overflow-hidden shadow-lg bg-layer2 pt-0 h-full'>
       <div className='relative h-16 bg-gradient-to-r from-[#625efc] to-[#8b8afc]' />
       <div className='flex flex-col items-center -mt-18 relative'>
-        <img
-          className='w-24 h-24 rounded-full border-4 border-white shadow-md object-cover'
-          src='https://randomuser.me/api/portraits/women/65.jpg'
-          alt='Avatar'
-        />
+        <Avatar className='w-24 h-24 rounded-full shadow-md object-cover'>
+          <AvatarImage src={employeeProfile?.avatar} />
+          <AvatarFallback className='text-4xl shadow-md border-2 border-white'>
+            {employeeProfile?.name.charAt(0)}
+          </AvatarFallback>
+        </Avatar>
         <div className='text-center mt-2'>
           <h2 className='text-lg font-semibold'>{employeeProfile?.name}</h2>
           <p className='text-sm text-muted-foreground'>
@@ -29,7 +35,7 @@ const EmployeeProfile = ({
         <div>
           <h3 className='text-sm font-medium mb-2'>Basic Information</h3>
           <ul className='space-y-2 text-sm text-muted-foreground'>
-            <li className='flex justify-between items-center'>
+            <li className='flex justify-between items-start'>
               <div className='flex items-center gap-2'>
                 <Cake size={16} /> Birthday
               </div>
@@ -37,7 +43,7 @@ const EmployeeProfile = ({
                 {dayjs(employeeProfile?.dateOfBirth).format('DD MMM YYYY')}
               </span>
             </li>
-            <li className='flex justify-between items-center'>
+            <li className='flex justify-between items-start'>
               <div className='flex items-center gap-2'>
                 <Phone size={16} /> Phone number
               </div>
@@ -45,7 +51,7 @@ const EmployeeProfile = ({
                 {employeeProfile?.phone}
               </span>
             </li>
-            <li className='flex justify-between items-center'>
+            <li className='flex justify-between items-start'>
               <div className='flex items-center gap-2'>
                 <Mail size={16} /> E-Mail
               </div>
@@ -53,7 +59,7 @@ const EmployeeProfile = ({
                 {employeeProfile?.email}
               </span>
             </li>
-            <li className='flex justify-between items-center'>
+            <li className='flex justify-between items-start'>
               <div className='flex items-center gap-2'>
                 <Globe size={16} /> Citizenship
               </div>
@@ -61,7 +67,7 @@ const EmployeeProfile = ({
                 {employeeProfile?.country}
               </span>
             </li>
-            <li className='flex justify-between items-center'>
+            <li className='flex justify-between items-start'>
               <div className='flex items-center gap-2'>
                 <MapPin size={16} /> City
               </div>
@@ -69,7 +75,7 @@ const EmployeeProfile = ({
                 {employeeProfile?.city}
               </span>
             </li>
-            <li className='flex justify-between items-center'>
+            <li className='flex justify-between items-start'>
               <div className='flex items-center gap-2'>
                 <Home size={16} /> Address
               </div>
@@ -83,7 +89,10 @@ const EmployeeProfile = ({
         <div>
           <h3 className='text-sm font-medium mb-2'>Documents</h3>
           <div className='flex gap-4'>
-            <Button variant='secondary' className='flex-1 justify-start gap-2'>
+            <Button
+              variant='secondary'
+              className='flex-1 justify-start gap-2 bg-blue-100 text-blue-600 hover:bg-blue-200 cursor-pointer'
+            >
               <img src='/icons/word.png' alt='Word' className='w-5 h-5' />
               Contract{' '}
               <span className='ml-auto text-xs text-muted-foreground'>
@@ -92,7 +101,7 @@ const EmployeeProfile = ({
             </Button>
             <Button
               variant='secondary'
-              className='flex-1 justify-start gap-2 bg-red-100 text-red-600'
+              className='flex-1 justify-start gap-2 bg-red-100 text-red-600 hover:bg-red-200 cursor-pointer'
             >
               <img src='/icons/ppt.png' alt='PPT' className='w-5 h-5' />
               Resume{' '}
