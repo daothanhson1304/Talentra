@@ -5,6 +5,7 @@ import { EmployeeHeader } from './components/employee-header';
 import { useGetTaskByEmployeeIdAndMonthQuery } from '@/modules/task/stores/api/task.api';
 import { useParams } from 'react-router';
 import { useGetEmployeeByIdQuery } from '@/modules/employee/stores/api/employee.api';
+import EmployeeProfileSkeleton from './components/employee-profile-skeleton';
 
 export default function EmployeeDetail() {
   const [selectedMonth, setSelectedMonth] = useState('2025-07');
@@ -17,7 +18,9 @@ export default function EmployeeDetail() {
     year: selectedMonth.split('-')[0] ?? '',
   });
 
-  const { data: employee } = useGetEmployeeByIdQuery(employeeId ?? '');
+  const { data: employee, isFetching } = useGetEmployeeByIdQuery(
+    employeeId ?? ''
+  );
 
   const totalHours = (
     ((data?.tasks.reduce((acc, task) => acc + task.slotCount, 0) ?? 0) * 5) /
@@ -25,9 +28,17 @@ export default function EmployeeDetail() {
   ).toFixed(2);
 
   return (
-    <div className='flex lg:grid-cols-3 gap-6 p-6 bg-layer1 min-h-screen w-full'>
-      {employee && <EmployeeProfile employeeProfile={employee} />}
-      <div className='flex-1 space-y-6'>
+    <div className='flex lg:grid-cols-3 gap-6 p-6 bg-layer1 min-h-screen w-full h-full'>
+      {isFetching ? (
+        <div className='flex-shrink-0 w-full max-w-sm min-w-[280px] h-full'>
+          <EmployeeProfileSkeleton />
+        </div>
+      ) : (
+        <div className='flex-shrink-0 w-full max-w-sm min-w-[280px] h-full'>
+          {employee && <EmployeeProfile employeeProfile={employee} />}
+        </div>
+      )}
+      <div className='space-y-6 flex-1'>
         <EmployeeHeader
           selectedMonth={selectedMonth}
           onChangeMonth={setSelectedMonth}

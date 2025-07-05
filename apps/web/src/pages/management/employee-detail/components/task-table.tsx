@@ -110,9 +110,10 @@ export default function EmployeeTaskTable({ tasks }: Readonly<Props>) {
 
   return (
     <>
-      <div className='w-full rounded-lg overflow-hidden border border-border'>
+      <div className='w-full rounded-lg border border-border overflow-hidden'>
+        {/* Table header */}
         <Table>
-          <TableHeader className='bg-muted'>
+          <TableHeader className='bg-muted sticky top-0 z-10'>
             {table.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
@@ -128,32 +129,38 @@ export default function EmployeeTaskTable({ tasks }: Readonly<Props>) {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows.length ? (
-              table.getRowModel().rows.map(row => (
-                <TableRow key={row.id}>
-                  {row.getVisibleCells().map(cell => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={taskColumns.length}
-                  className='h-24 text-center'
-                >
-                  No tasks found.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
         </Table>
+
+        {/* Scrollable table body */}
+        <div className='max-h-[420px] overflow-y-auto'>
+          <Table>
+            <TableBody>
+              {table.getRowModel().rows.length ? (
+                table.getRowModel().rows.map(row => (
+                  <TableRow key={row.id}>
+                    {row.getVisibleCells().map(cell => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={taskColumns.length}
+                    className='h-24 text-center'
+                  >
+                    No tasks found.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
 
       <div className='flex items-center justify-between px-4 mt-4'>
@@ -225,14 +232,6 @@ const taskColumns: ColumnDef<Task>[] = [
   {
     accessorKey: 'description',
     header: 'Description',
-  },
-
-  {
-    accessorKey: 'importance',
-    header: 'Priority',
-    cell: ({ row }) => (
-      <span className='capitalize'>{row.original.importance}</span>
-    ),
   },
   {
     accessorKey: 'status',

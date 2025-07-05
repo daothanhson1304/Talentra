@@ -9,7 +9,7 @@ const EmployeeProfile = ({
   employeeProfile,
 }: Readonly<{ employeeProfile: Employee }>) => {
   return (
-    <Card className='max-w-sm mx-auto rounded-2xl overflow-hidden shadow-lg bg-layer2 pt-0'>
+    <Card className='flex-1 max-w-sm mx-auto rounded-2xl overflow-hidden shadow-lg bg-layer2 pt-0 h-full'>
       <div className='relative h-16 bg-gradient-to-r from-[#625efc] to-[#8b8afc]' />
       <div className='flex flex-col items-center -mt-18 relative'>
         <img
