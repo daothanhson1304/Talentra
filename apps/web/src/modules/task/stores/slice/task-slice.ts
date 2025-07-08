@@ -67,7 +67,6 @@ const taskSlice = createSlice({
         task.day = action.payload.day;
         task.startSlot = task.startSlot + action.payload.startSlot;
         task.scheduled = true;
-        task.slotCount = task.slotCount || 6;
       }
     },
     syncWithOriginal(state) {

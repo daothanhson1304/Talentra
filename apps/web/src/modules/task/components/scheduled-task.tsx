@@ -9,18 +9,21 @@ import useCalendar from '@/modules/calendar/hooks/use-calendar';
 
 export type ScheduledTaskProps = Pick<
   Task,
-  '_id' | 'slotCount' | 'title' | 'startSlot'
+  '_id' | 'slotCount' | 'title' | 'startSlot' | 'description'
 > & {
   style?: React.CSSProperties;
   isFirstInGroup?: boolean;
   className?: string;
+  isDraft?: boolean;
 };
 
 export default function ScheduledTask({
   title,
+  description,
   _id,
   startSlot,
   slotCount,
+  isDraft,
   className,
 }: ScheduledTaskProps) {
   const [isResizing, setIsResizing] = useState(false);
@@ -91,6 +94,7 @@ export default function ScheduledTask({
       window.removeEventListener('mouseup', handleMouseUp);
     };
   }, [isResizing, pixelsPerMinute]);
+  const { widthPerDay } = useCalendar();
 
   if (startSlot === null) return null;
 
@@ -103,7 +107,10 @@ export default function ScheduledTask({
         },
         className
       )}
-      style={style}
+      style={{
+        ...style,
+        width: `${widthPerDay * 0.95}px`,
+      }}
     >
       <div
         className='w-full h-full flex items-start gap-2 cursor-grab'
@@ -116,14 +123,17 @@ export default function ScheduledTask({
       >
         <div className='h-full w-1 bg-aqua-breeze rounded-sm'></div>
         <div className='flex-1 flex flex-col gap-1.5 h-full'>
-          {slotCount > 1 && (
+          {slotCount > 1 && !isDraft && (
             <p className='text-xs flex items-start gap-1'>
               <span>{startTime}</span>
               <MoveRight size={12} />
               <span>{endTime}</span>
             </p>
           )}
-          <p>{title}</p>
+          <p className='text-sm font-medium'>{title}</p>
+          <p className='text-xs text-primary-foreground whitespace-pre-wrap'>
+            {description}
+          </p>
         </div>
       </div>
       <div

@@ -7,19 +7,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@talentra/ui/components/popover';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@talentra/ui/components/select';
-import { Plus, User, Mail, Phone, MapPin } from 'lucide-react';
+
+import { Plus, Mail, Phone, MapPin, UserPen } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { EmployeeRole } from '@talentra/types/employee';
 import { toast } from '@talentra/ui/components/sonner';
 import dayjs from 'dayjs';
 import {
@@ -42,7 +34,7 @@ const formSchema = z.object({
     message: 'Phone number is required',
   }),
   address: z.string().optional(),
-  role: z.nativeEnum(EmployeeRole).default(EmployeeRole.Teacher),
+  position: z.string().optional(),
 });
 
 const defaultValues = {
@@ -50,7 +42,7 @@ const defaultValues = {
   email: '',
   phone: '',
   address: '',
-  role: EmployeeRole.Teacher,
+  position: '',
 };
 
 export default function CreateEmployeePopover() {
@@ -69,13 +61,13 @@ export default function CreateEmployeePopover() {
         email: values.email,
         phone: values.phone,
         address: values.address ?? '',
-        salary: 12000,
-        department: 'IT',
-        position: 'Developer',
-        avatar: `https://robohash.org/${Math.random().toString(36).substring(2)}.png`,
-        dateOfBirth: new Date().toISOString(),
-        country: 'United States',
-        city: 'New York',
+        position: values.position ?? '',
+        salary: 0,
+        department: '',
+        avatar: '',
+        dateOfBirth: '',
+        country: '',
+        city: '',
       }).unwrap();
 
       toast('Employee has been created', {
@@ -184,24 +176,17 @@ export default function CreateEmployeePopover() {
               </div>
 
               <div className='flex items-center text-sm text-zinc-300 mb-4 gap-2'>
-                <User size={16} />
-                <span className='text-muted-foreground'>Role</span>
+                <UserPen size={16} />
+                <span className='text-muted-foreground'>Position</span>
                 <FormField
                   control={form.control}
-                  name='role'
+                  name='position'
                   render={({ field }) => (
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className='bg-transparent border-none outline-none p-0'>
-                        <SelectValue placeholder='Select role' />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectItem value='teacher'>Teacher</SelectItem>
-                          <SelectItem value='admin'>Admin</SelectItem>
-                          <SelectItem value='manager'>Manager</SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
+                    <Input
+                      className='bg-transparent border-none outline-none placeholder-zinc-500 w-full'
+                      placeholder='Enter position (optional)'
+                      {...field}
+                    />
                   )}
                 />
               </div>

@@ -1,4 +1,4 @@
-import { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
+import { DragEndEvent, DragOverEvent, DragStartEvent } from '@dnd-kit/core';
 import { useDispatch, useSelector } from 'react-redux';
 import useTaskStore from '@/modules/task/hooks/use-task-store';
 import useCalendar from '@/modules/calendar/hooks/use-calendar';
@@ -26,8 +26,9 @@ const useDragDrop = () => {
   const handleDragStart = (event: DragStartEvent) => {
     createDraggingTask(event.active.id as string);
   };
-  const handleDragOver = () => {
-    dispatch(setIsDragOver(true));
+  const handleDragOver = (event: DragOverEvent) => {
+    const isOver = !!event.over;
+    dispatch(setIsDragOver(isOver));
   };
   const handleDragEnd = (event: DragEndEvent) => {
     clearDraggingTask();
@@ -42,7 +43,19 @@ const useDragDrop = () => {
     };
 
     const calculateDayOffset = (x: number) => {
-      return Math.floor(x / widthPerDay);
+      const remainder = Math.abs(x) % widthPerDay;
+
+      if (x > 0) {
+        if (remainder < widthPerDay / 2) {
+          return Math.floor(x / widthPerDay);
+        }
+        return Math.ceil(x / widthPerDay);
+      } else {
+        if (remainder < widthPerDay / 2) {
+          return Math.ceil(x / widthPerDay);
+        }
+        return Math.floor(x / widthPerDay);
+      }
     };
 
     const calculateStartSlot = (y: number) => {
@@ -55,11 +68,14 @@ const useDragDrop = () => {
       const daySlot = calculateDayOffset(
         delta.x - itemWidth - PADDING_PANEL * 3 - TIME_LINE_WIDTH
       );
-      const nextDay = calculateNextDay(daysOfWeek[0] ?? '', daySlot);
+      const nextDay = calculateNextDay(
+        daysOfWeek[0] ?? '',
+        daySlot < 0 ? 0 : daySlot
+      );
+      console.log(nextDay, startSlot);
       updateScheduledTask(active.id as string, nextDay, startSlot);
     } else {
       const nextSlot = calculateStartSlot(delta.y);
-      if (nextSlot === 0) return;
       const nextDay = calculateNextDay(day, calculateDayOffset(delta.x));
       updateScheduledTask(active.id as string, nextDay, nextSlot);
     }

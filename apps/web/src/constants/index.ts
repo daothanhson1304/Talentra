@@ -17,3 +17,5 @@ export const TASK_ITEM_HEIGHT = 64;
 export const AUTO_SAVE_SPINNER_DURATION_MS = 1000;
 
 export const AUTO_SAVE_DELAY_MS = 10000;
+
+export const SLOTS_ONE_HOUR = 12;

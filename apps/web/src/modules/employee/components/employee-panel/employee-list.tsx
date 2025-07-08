@@ -16,13 +16,20 @@ export default function EmployeeList({ filter }: Readonly<EmployeeListProps>) {
     setSelectedEmployeeId(id);
     setActiveTab(SidebarTab.TASK);
   };
-
+  console.log(employees);
   if (isLoading) return <EmployeeListSkeleton />;
-  if (!employees) return null;
+  if (!isLoading && employees?.length === 0) {
+    return (
+      <div className='absolute inset-0 flex flex-col items-center justify-center'>
+        <img src='/images/empty.webp' alt='empty' className='w-1/2' />
+        <p className='text-sm text-gray-500'>No employees found</p>
+      </div>
+    );
+  }
   return (
     <div className='flex flex-col gap-2'>
       {employees
-        .filter(employee =>
+        ?.filter(employee =>
           employee.name.toLowerCase().includes(filter.toLowerCase())
         )
         .map(employee => (

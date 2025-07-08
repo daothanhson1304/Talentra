@@ -33,6 +33,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useCreateTaskMutation } from '../stores/api/task.api';
+import { SLOTS_ONE_HOUR } from '@/constants';
 const formSchema = z.object({
   taskName: z.string().min(1, {
     message: 'Task name is required',
@@ -69,7 +70,7 @@ export default function CreateTaskPopover() {
       importance: values.importance ?? Importance.medium,
       day: new Date().toISOString(),
       startSlot: 0,
-      slotCount: 0,
+      slotCount: SLOTS_ONE_HOUR,
       scheduled: false,
       employeeId: selectedEmployeeId,
       status: 'pending',

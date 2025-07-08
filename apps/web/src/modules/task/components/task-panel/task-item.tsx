@@ -51,30 +51,30 @@ export default function TaskItem({
       )}
     >
       <div
+        className={cn('flex items-center gap-2', {
+          'w-full h-[40px] rounded-md': isHidden,
+        })}
         ref={node => {
           setNodeRef(node);
         }}
-        className={cn('cursor-grab flex items-center gap-2', {
-          'w-full h-[40px] rounded-md': isHidden,
-        })}
-        style={style}
-        {...listeners}
-        {...attributes}
       >
-        {!isHidden && (
-          <>
-            <GripVertical size={20} className='text-muted-foreground' />
+        <span
+          className='cursor-grab '
+          style={style}
+          {...listeners}
+          {...attributes}
+        >
+          <GripVertical size={20} className='text-muted-foreground' />
+        </span>
 
-            <div className='flex flex-col flex-1 min-w-0'>
-              <h3 className='text-sm font-medium whitespace-nowrap truncate w-full'>
-                {task.title}
-              </h3>
-              <p className='text-sm text-muted-foreground truncate w-full'>
-                {task.description}
-              </p>
-            </div>
-          </>
-        )}
+        <div className='flex flex-col flex-1 min-w-0'>
+          <h3 className='text-sm font-medium whitespace-nowrap truncate w-full'>
+            {task.title}
+          </h3>
+          <p className='text-sm text-muted-foreground truncate w-full'>
+            {task.description}
+          </p>
+        </div>
       </div>
     </li>
   );

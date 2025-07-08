@@ -74,7 +74,7 @@ const ScheduledTaskGrid = memo(({ dayOffset }: { dayOffset: number }) => {
           startSlot={task.startSlot}
           slotCount={task.slotCount}
           isFirstInGroup={task.isFirstInGroup}
-          className='w-[95%]'
+          description={task.description}
         />
       ))}
     </div>
